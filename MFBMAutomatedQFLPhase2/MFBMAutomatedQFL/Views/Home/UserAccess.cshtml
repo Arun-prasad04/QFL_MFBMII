@@ -1,0 +1,140 @@
+﻿@model MFBMAutomatedQFL.Models.Inputs
+
+@{
+    ViewBag.Title = "User Access Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+        /* .overflow-ellipse {
+            white-space: nowrap !important;
+            max-width: 210px !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+        .overflow-ellipse-header {
+            white-space: nowrap !important;
+            max-width: 120px !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+        }
+    */
+
+        .AutomatedQFLPage-progressmonitor0 > .mCustomScrollBox {
+            /*width: 1000px;
+                max-width: 1000px;*/
+        }
+
+        .AutomatedQFLPage-progressmonitor0 {
+            /*width: 1000px;*/
+        }
+
+        .AutomatedQFLPage-progressmonitor1 > .mCustomScrollBox {
+            /*width: 1000px !important;
+                max-width: 1000px !important;*/
+        }
+
+        .AutomatedQFLPage-progressmonitor1 {
+            /*width: 1000px !important;*/
+        }
+
+        .AutomatedQFLPage-progressmonitor-page > .mCustomScrollBox {
+            width: 100% !important;
+            max-width: 100% !important;
+        }
+
+
+        .numberCircle {
+            border-radius: 50%;
+            width: 9px;
+            height: 11px;
+            margin-left: 52px;
+            background: #fff;
+            border: 2px solid #666;
+            color: #666;
+            text-align: center;
+            font: 32px Arial, sans-serif;
+        }
+        /*.progressMonitor-filter div i.icon, i.fa-chart-line {
+            padding: 5px;
+            background: #00677F;
+            color: #fff;
+            border-radius: 3px;
+            cursor: pointer;
+        }*/
+</style>
+<link href="~/Content/progressMonitor.css" rel="stylesheet" />
+<link href="~/Content/UserAccess.css" rel="stylesheet" />
+<script src="~/Plugins/UserDetails.js"></script>
+<link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.dataTables.js"></script>
+<div class="Table_contentpanel  ">
+    <div class="Audittrackertitlebg ">
+        <span class="trn" data-trn-key="User Details" data-trn-value="">
+            User Details
+        </span>
+        <i class="fas fa-file-excel icon pull-right mr-5" id="ExportExcel" onclick="UserAccessExport()" data-toggle="tooltip" data-placement="bottom" data-original-title="Export to Excel"></i>
+
+    </div>
+    <hr style="margin-top: 1px; margin-bottom: 1px;">
+
+    <div class="AutomatedQFLPage-progressmonitor-page">
+        <div class="panel-group" id="UserDetails">
+
+            @*UserDetails*@
+
+
+            @*<div id="tab0" class="panel panel-default">
+                    <div class="panel-heading">
+                        <a data-toggle="collapse" class="collapsed" data-parent="#accordions" href="#collapse0">
+                            <h4 class="panel-title">User Details<span class="circle pull-right"><i class="fa"></i></span></h4>
+                        </a>
+                    </div>
+                    <div id="collapse0" class="panel-collapse collapse">
+                        <div class="table-responsive IE-display-block">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="tblheadtext">
+                                        <th style="width: 10%"><span class="trn">Email</span></th>
+                                        <th style="width: 10%"><span class="trn">Progress Monitor</span></th>
+                                        <th style="width: 10%"><span class="trn">QFLFeedBack</span></th>
+                                        <th style="width: 10%"><span class="trn">Masters</span></th>
+                                        <th style="width: 10%"><span class="trn">Reports</span></th>
+                                        <th style="width: 10%"><span class="trn">Rework-LDB Line</span></th>
+                                    </tr>
+                                </thead>
+                            </table>
+
+                            <div class="IE-mt-0 AutomatedQFLPage-progressmonitor0">
+                                <table class="table table-bordered text-center">
+                                    <thead style="display: none">
+                                        <tr class="tblheadtext">
+                                            <th style="width: 10%"><span class="trn">Email</span></th>
+                                            <th style="width: 10%"><span class="trn">Progress Monitor</span></th>
+                                            <th style="width: 10%"><span class="trn">QFLFeedBack</span></th>
+                                            <th style="width: 10%"><span class="trn">Masters</span></th>
+                                            <th style="width: 10%"><span class="trn">Reports</span></th>
+                                            <th style="width: 10%"><span class="trn">Rework-LDB Line</span></th>
+                                    <tbody>
+                                        <tr class="cursor-pointer">
+                                            <td width="10%">akihiro.nozumi@daimler.com  </td>
+                                            <td width="10%">O</td>
+                                            <td width="10%">O</td>
+                                            <td width="10%">O</td>
+                                            <td width="10%">O</td>
+                                            <td width="10%" id="Rework-LDB Line"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+
+
+
+
+        </div>
+    </div>
+</div>
+
+

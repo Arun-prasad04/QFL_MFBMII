@@ -1,0 +1,371 @@
+﻿@{
+    ViewBag.Title = "DefectPlaceMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .error {
+        border: 1px solid red !important;
+    }
+</style>
+
+<link href="~/Content/defectplacemaster.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.validationEngine-en.js"></script>
+<script src="~/Scripts/jquery.validationEngine.js"></script>
+<script src="~/Plugins/DefectMaster.js"></script>
+<div class="Table_contentpanel  ">
+    <div class="Audittrackertitlebg ">
+        <span class="trn" >Defect Place Master</span>
+        <span class="pull-right">
+            <button type="button" onclick="AddDefectmaster()" class="btn btn-success btn-xs" data-toggle="modal" data-target="#myModal"><span class="trn">Add New</span></button>
+        </span>
+
+    </div>
+    <hr style=" margin-top: 1px; margin-bottom: 1px;">
+
+    <div class="row">
+        <div class="col-md-3"></div>
+
+        <div class="col-md-6 margin-bottom-0">
+            <table class="table table-bordered text-center margin-bottom-0">
+                <thead>
+                    <tr>
+                        <th class="text-center" width="35%"><span class="trn">Serial No</span></th>
+                        <th class="text-center" width="35%"><span class="trn">Defect Place</span></th>
+                        <th class="text-center" width="30%"><span class="trn">Action</span></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div class="AutomatedQFLPage-qgmaster">
+        <div class="row" id="DefectPlacemaster">
+            @*<div class="col-md-3"></div>*@
+
+            @*<div class="col-md-6">
+                <table class="table table-bordered text-center">
+
+                    <tbody>
+                        <tr>
+                            <td width="35%">148654</td>
+                            <td width="35%">MP38FKF</td>
+                            <td width="30%">
+
+                                <i class="fa fa-pencil-alt icondownload" aria-hidden="true" title="" data-toggle="modal" data-target="#myModal"></i>
+                                <i class="fa fa-trash icondelete" aria-hidden="true" title="" data-toggle="modal" data-target="#delete"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="35%">148654554</td>
+                            <td width="35%">MP38FKF</td>
+                            <td width="30%">
+
+                                <i class="fa fa-pencil-alt icondownload" aria-hidden="true" title="" data-toggle="modal" data-target="#myModal"></i>
+                                <i class="fa fa-trash icondelete" aria-hidden="true" title="" data-toggle="modal" data-target="#delete"></i>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>*@
+
+        </div>
+
+    </div>
+    <form id="DefectMaster">
+        <div class="modal fade " data-backdrop="static" id="DefectMasterModal" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content defect-modal-content">
+                    @*<div class="modasdl-header" style="background-image: url('../../Images/header-bg.jpg')">
+                            <buftton type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title" id="AlertTitleUpdate"> Add New </h4>
+                        </div>*@
+
+                    <div class="modal-body ">
+                        <h2 class="text-center"><span class="trn">Defect Place</span></h2>
+                        <div class="row defect-modal-body">
+                            <div class="col-md-12" id="divAllTextBox">
+                                <div>
+                                    <div class=" row mt-2 retain-row ">
+                                        <span class="col-sm-2 mt-10"><label><span class="trn">Name</span><span class="text-danger">*</span> </label></span>
+                                        <span class="col-sm-10 mt-10"><input type="text" class="form-control"  id="txtDefectplacname"></span>
+
+                                    </div>
+                                    <h4 class=""><label><span class="trn">Template</span></label></h4>
+                                    <div class=" row mt-2 retain-row ">
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname1" class="form-control text-box"></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name=""  id="Defectplacname2" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname3" class="form-control text-box" placeholder=""></span>
+
+                                    </div>
+                                    <div class=" row mt-2 retain-row">
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname4" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname5" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname6" class="form-control text-box" placeholder=""></span>
+
+                                    </div>
+                                    <div class=" row mt-2 retain-row">
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname7" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name=""  id="Defectplacname8" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name=""  id="Defectplacname9" class="form-control text-box" placeholder=""></span>
+
+                                    </div>
+                                    <div class=" row mt-2 retain-row">
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname10" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname11" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname12" class="form-control text-box" placeholder=""></span>
+
+                                    </div>
+                                    <div class=" row mt-2 retain-row">
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname13" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname14" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname15" class="form-control text-box" placeholder=""></span>
+
+                                    </div>
+                                    <div class=" row mt-2 retain-row">
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname16" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname17" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname18" class="form-control text-box" placeholder=""></span>
+
+                                    </div>
+                                    <div class=" row mt-2 retain-row">
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname19" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname20" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname21" class="form-control text-box" placeholder=""></span>
+
+                                    </div>
+                                    <div class=" row mt-2 retain-row">
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname22" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname23" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname24" class="form-control text-box" placeholder=""></span>
+
+                                    </div>
+                                    <div class=" row mt-2 retain-row">
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname25" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname26" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname27" class="form-control text-box" placeholder=""></span>
+
+                                    </div>
+                                    <div class=" row mt-2 retain-row">
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname28" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname29" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname30" class="form-control text-box" placeholder=""></span>
+
+                                    </div>
+                                    <div class=" row mt-2 retain-row">
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname31" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname32" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname33" class="form-control text-box" placeholder=""></span>
+
+                                    </div>
+                                    <div class=" row mt-2 retain-row">
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname34" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname35" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname36" class="form-control text-box" placeholder=""></span>
+                                        @*<span class="col-sm-3 mt-10"><i onclick="addparts();" class="fa fa-plus-circle add first-add" aria-hidden="true"></i></span>*@
+
+                                    </div>
+                                    <div class=" row mt-2 retain-row">
+                                        <span class="col-sm-2 mt-10"></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname37" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" class="form-control text-box" id="Defectplacname38" placeholder=""></span>
+                                        <span class="col-sm-2 mt-10"></span>
+
+                                    </div>
+                                    <div class=" row mt-2 retain-row">
+                                        <span class="col-sm-2 mt-10"></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname39" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname40" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-2 mt-10"></span>
+
+                                    </div>
+
+                                    <div class=" row mt-2 retain-row">
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname41" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname42" class="form-control text-box" placeholder=""></span>
+                                        <span class="col-sm-4 mt-10"><input type="text" name="" id="Defectplacname43" class="form-control text-box" placeholder=""></span>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer text-center">
+                        @*<button type="submit" id="btnSubmit" class="btn btn-success btn-xs" data-dismiss="modal">Save</button>class="btn btn-success btn-xs btn-cancel btn-center"*@
+                        <input type="submit" id="btnSubmit" class="btn btn-success btn-cancel btn-center"  data-toggle="modal"  />
+                        <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="trn">Cancel</span></button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal fade masterModal" id="Confirmationpopup" role="dialog">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+
+
+            <div class="modal-header" style="background-image: url('../Images/header-bg.jpg')">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id=""><span class="trn">Confirmation</span></h4>
+            </div>
+
+            <div class="modal-body" style="min-height: 103px;">
+                <div class="col-lg-12" style="padding: 5px;">
+                    <div class="title">
+                        <h4 id="ConfirmationMessage"></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnSearch" class="btn btn-success btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Submit" style="width: 64px;">
+                    <span class="trn">Submit</span>
+                </button>
+                <button type="submit" id="btnCancelSearch" class="btn btn-danger btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Cancel" style="width: 64px;">
+                    <span class="trn">Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@*<div class="modal fade " data-backdrop="static" id="myModal2" role="dialog">
+        <div class="modal-dialog">
+
+             Modal content
+            <div class="modal-content defect-modal-content">
+                <div class="modal-header" style="background-image: url('../../Images/header-bg.jpg')">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="AlertTitleUpdate"> Add New </h4>
+                    </div>
+
+                <div class="modal-body">
+                    <h2 class="text-center">Site 1</h2>
+                    <div class="row defect-modal-body">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block defect-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block defect-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block defect-modal-buttons">Button1</button>
+                                </div>
+                            </div>
+                            <div class="row mt-10">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block defect-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block defect-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block defect-modal-buttons">Button1</button>
+                                </div>
+                            </div>
+                            <div class="row mt-10">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block defect-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block defect-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block defect-modal-buttons">Button1</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                        <div class="modal-footer text-center">
+                            <button type="submit" id="btnSubmit" class="btn btn-success btn-xs" data-dismiss="modal">Save</button>
+                            <input type="submit" id="btnSubmit" class="btn btn-success btn-cancel btn-center" data-dismiss="modal" data-toggle="modal" data-target="#myModal3" />
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                        </div>
+                    </div>
+
+                </div>
+    </div>
+
+    <div class="modal fade " data-backdrop="static" id="myModal3" role="dialog">
+        <div class="modal-dialog">
+
+             Modal content
+            <div class="modal-content defect-modal-content ">
+                <div class="modal-header" style="background-image: url('../../Images/header-bg.jpg')">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" id="AlertTitleUpdate"> Add New </h4>
+                    </div>
+
+                <div class="modal-body">
+                    <h2 class="text-center">Defect Level</h2>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-block defect-modal-buttons2">A</button>
+                        </div>
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-block defect-modal-buttons2">B</button>
+                        </div>
+                    </div>
+                    <div class="row mt-10">
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-block defect-modal-buttons2">C</button>
+                        </div>
+                        <div class="col-sm-6">
+                            <button type="button" class="btn btn-block defect-modal-buttons2">D</button>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="submit" id="btnSubmit" class="btn btn-success btn-xs" data-dismiss="modal">Save</button>
+                    <input type="submit" id="btnSubmit" class="btn btn-success btn-cancel btn-center" />
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+    </div>*@
+
+@*<script>
+        $(document).ready(function () {
+            $('.defect-modal-buttons').click(function () {
+                                    $(this).toggleClass('defect-modal-buttons-click');
+            })
+        });
+    </script>*@
+@*<script>
+        var rowcount = 0;
+
+        function addparts() {
+            var iid = 'row' + rowcount;
+            $('.retain-row:last').before('<div id="row' + rowcount + '" class=" row mt-2 retain-row"><span class="col-sm-3 mt-10"><input type="text" class="form-control" ></span><span class="col-sm-3 mt-10"><input type="text" class="form-control" ></span><span class="col-sm-3 mt-10"><input type="text" class="form-control" ></span><span class="col-sm-2 mt-10 text-center plus-minus"><i onclick="addparts();" class="fa fa-plus-circle add add2" aria-hidden="true"></i><i onclick="removeparts(\'' + iid + '\');" class="fa fa-minus-circle remove remove2" aria-hidden="true"></i></span></div>');
+            $('.add').hide();
+            $('.add2').last().show();
+            $('.remove').hide();
+            $('.remove2').last().show();
+            rowcount = rowcount + 1;
+
+        }
+        function removeparts(id) {
+
+            $("#" + id).remove();
+            $('.add2').last().show();
+            $('.remove2').last().show();
+            rowcount = rowcount - 1;
+
+            if (rowcount == 0) {
+                $('.add').show();
+
+            }
+        }
+    </script>*@

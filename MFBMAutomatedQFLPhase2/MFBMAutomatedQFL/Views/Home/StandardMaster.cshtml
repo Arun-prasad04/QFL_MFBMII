@@ -1,0 +1,160 @@
+﻿@model MFBMAutomatedQFL.Models.StandardModel
+
+@{
+    ViewBag.Title = "StandardMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+
+
+    .error {
+        border: 1px solid red !important;
+    }
+</style>
+<link href="~/Content/standardmaster.css" rel="stylesheet" />
+<script src="~/Plugins/StandardMaster.js"></script>
+@*<script src="~/Plugins/Standard.js"></script>*@
+<script src="~/Scripts/theme.js"></script>
+<div class="Table_contentpanel  ">
+    <div class="Audittrackertitlebg ">
+    <span class="trn" data-trn-key="Standard Master" data-trn-value="">Standard Master               </span>
+    <span class="pull-right">
+        <button type="button" onclick="AddStandmaster()" class="btn btn-success btn-xs" data-toggle="modal" data-target="#mymodal"><span class="trn">Add New</span></button>
+    </span>
+
+</div>
+    <hr style="margin-top: 1px; margin-bottom: 1px;">
+
+    <div class="row">
+        <div class="col-md-3"></div>
+
+        <div class="col-md-6 margin-bottom-0">
+            <table class="table table-bordered text-center margin-bottom-0">
+                <thead>
+                    <tr>
+                        <th class="text-center" width="35%"><span class="trn">Serial No</span></th>
+                        <th class="text-center" width="35%"><span class="trn">Standard</span></th>
+                        <th class="text-center" width="30%"><span class="trn">Action</span></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+    <div class="AutomatedQFLPage-qgmaster">
+
+        <div class="row" id="Standmaster">
+            @*<div class="col-md-3"></div>
+
+                   <div class="col-md-6">
+                    <table class="table table-bordered text-center">
+
+                    <tbody>as
+                        <tr>
+                            <td width="35%">148654</td>
+                            <td width="35%">MP38FKF</td>
+                            <td width="30%">
+
+                                <i class="fa fa-pencil-alt icondownload" aria-hidden="true" title="" data-toggle="modal" data-target="#EditSandard"></i>
+                                <i class="fa fa-trash icondelete" aria-hidden="true" title="" data-toggle="modal" data-target="#delete"></i>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td width="35%">148654554</td>
+                            <td width="35%">MP38FKF</td>
+                            <td width="30%">
+
+                                <i class="fa fa-pencil-alt icondownload" aria-hidden="true" title="" data-toggle="modal" data-target="#EditSandard"></i>
+                                <i class="fa fa-trash icondelete" aria-hidden="true" title="" data-toggle="modal" data-target="#delete"></i>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+                </div>*@
+
+
+        </div>
+    </div>
+</div>
+
+
+<form id="StandardMaster" enctype="multipart/form-data">
+
+
+    <div class="modal fade " data-backdrop="static" id="AddStandmasterModal" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header" style="background-image: url('../../Images/header-bg.jpg')">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="AlertTitleUpdate">  </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3 ">
+                            <label><span class="trn">Standard Name</span><span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            <input type="text" id="txtStandMaster" class="form-control input-sm " style="border: 1px solid rgb(204, 204, 204);">
+                        </div>
+                    </div>
+                    <div class="row m-t-5px">
+                        <div class="col-md-3 ">
+                            <label><span class="trn">Attachment</span> <span class="text-danger">*</span></label>
+                        </div>
+                        <div class="col-md-9">
+                            @*<input type="file"  id="files1" name="files[]">*@
+                            <button id="bfile" type="button" class="btn btn-success btn-xs">
+                                <span class="trn" data-trn-key="Browse" data-trn-value="">Browse</span>
+                            </button>
+                            <input type="file" id="files1" name="files[]" style="display: none;" />
+                            <span id="FileName" style="font-size: 12px; " class="trn label label-info"></span>
+                            <span id="FileError" style="font-size: 12px; color: Red; display: none;" class="trn" data-trn-key="Select a file to Upload" data-trn-value="">Select a file to Upload</span>
+
+                        </div>
+                        <div id="AttachmentUpload" class="col-md-6 col-sm-6">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    @*<button type="submit" id="btnSubmit" class="btn btn-success btn-xs" data-dismiss="modal">Save</button>*@
+                    <input type="submit" id="btnSubmit" class="btn btn-success btn-xs btn-cancel btn-center" />
+                    <button type="button" class="btn btn-xs btn-danger" data-dismiss="modal"><span class="trn">Cancel</span></button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</form>
+<div class="modal fade masterModal" id="Confirmationpopup" role="dialog">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+
+
+            <div class="modal-header" style="background-image: url('../Images/header-bg.jpg')">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id=""><span class="trn">Confirmation</span></h4>
+            </div>
+
+            <div class="modal-body" style="min-height: 103px;">
+                <div class="col-lg-12" style="padding: 5px;">
+                    <div class="title">
+                        <h4 id="ConfirmationMessage"></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnSearch" class="btn btn-success btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Submit" style="width: 64px;">
+                    <span class="trn">Submit</span>
+                </button>
+                <button type="submit" id="btnCancelSearch" class="btn btn-danger btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Cancel" style="width: 64px;">
+                    <span class="trn">Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,361 @@
+﻿@model MFBMAutomatedQFL.Models.QGateMaster
+@{
+    ViewBag.Title = "QgateMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/Sortable.js"></script>
+<script src="~/Plugins/QGateMaster.js"></script>
+
+<style>
+    .error {
+        border: 1px solid red !important;
+    }
+
+    .Radiobuttondiv {
+        margin-top: 9px;
+        margin-left: 128px;
+    }
+
+    .pointer {
+        cursor: pointer;
+    }
+</style>
+
+
+
+<div class="Table_contentpanel">
+    <div class="Audittrackertitlebg ">
+        <strong id="Strong1"><span class="trn" data-trn-key="QGate Master" data-trn-value="">QGate Master</span> </strong>
+    </div>
+    <hr style="margin-top: 1px; margin-bottom: 1px;">
+    <div class="AutomatedQFLPage-qgmaster">
+
+        <div class="row p-8" id="dvQGate">
+            @*<div class="col-md-4 col-lg-3 col-sm-6 lineGeneral ">
+                                <div class="lineGeneralBox" id="qgate">
+                                    <div class="lineHeadTop">
+                                        <div class="lineHeadLeft" style="">
+                                            <h3 class="lineHead">HDB Line</h3>
+                                        </div>
+                                        <div class="lineHeadRight" style=""><i class="fas fa-sort enable tooltip-QGList"><span class="tooltiptext tooltip-top">Enable Re-arrange</span></i><i id="1" class="fas fa-plus-circle addList tooltip-QGList"><span class="tooltiptext tooltip-top">Add QGate</span></i></div>
+                                    </div>
+
+                                    <div class=" AutomatedQFLPage">
+                                        <ul class="list half" id="sortable1">
+                                            <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>Reword Confirmation<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>123dsfsdf<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+                                                    <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>Rework Csdfsdfonfirmation<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                        <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>1dsfdsf23<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+
+                                                            <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>dsfdsf Confirmation<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                                <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>123<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+                                                                    <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>Rewordsfsdfsfdsk dfssdf<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                                        <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>dsfdsfdsf<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+
+                            </ul>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                                                            <div class="col-md-4 col-lg-3 col-sm-6 lineGeneral ">
+                                                                <div class="lineGeneralBox" id="qgate">
+                                                                    <div class="lineHeadTop">
+                                                                        <div class="lineHeadLeft" style="">
+                                                                            <h3 class="lineHead">HDB Line</h3>
+                                                                        </div>
+                                                                        <div class="lineHeadRight" style=""><i class="fas fa-sort enable tooltip-QGList"><span class="tooltiptext tooltip-top">Enable Re-arrange</span></i><i id="1" class="fas fa-plus-circle addList tooltip-QGList"><span class="tooltiptext tooltip-top">Add QGate</span></i></div>
+                                                                    </div>
+
+                                                                    <div class=" AutomatedQFLPage">
+                                                                        <ul class="list half" id="sortable2">
+                                                                            <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>Reword Confirmation<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                                                <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>123dsfsdf<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+                                                                                    <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>Rework Csdfsdfonfirmation<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                                                        <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>1dsfdsf23<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+
+                                                                                            <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>dsfdsf Confirmation<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                                                                <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>123<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+                                                                                                    <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>Rewordsfsdfsfdsk dfssdf<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                                                                        <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>dsfdsfdsf<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+
+                            </ul>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                                                                                            <div class="col-md-4 col-lg-3 col-sm-6 lineGeneral ">
+                                                                                                <div class="lineGeneralBox" id="qgate">
+                                                                                                    <div class="lineHeadTop">
+                                                                                                        <div class="lineHeadLeft" style="">
+                                                                                                            <h3 class="lineHead">HDB Line</h3>
+                                                                                                        </div>
+                                                                                                        <div class="lineHeadRight" style=""><i class="fas fa-sort enable tooltip-QGList"><span class="tooltiptext tooltip-top">Enable Re-arrange</span></i><i id="1" class="fas fa-plus-circle addList tooltip-QGList"><span class="tooltiptext tooltip-top">Add QGate</span></i></div>
+                                                                                                    </div>
+
+                                                                                                    <div class=" AutomatedQFLPage">
+                                                                                                        <ul class="list half" id="sortable3">
+                                                                                                            <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>Reword Confirmation<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                                                                                <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>123dsfsdf<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+                                                                                                                    <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>Rework Csdfsdfonfirmation<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                                                                                        <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>1dsfdsf23<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+
+                                                                                                                            <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>dsfdsf Confirmation<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                                                                                                <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>123<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+                                                                                                                                    <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>Rewordsfsdfsfdsk dfssdf<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                                                                                                        <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>dsfdsfdsf<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+
+                            </ul>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                                                                                                                            <div class="col-md-4 col-lg-3 col-sm-6 lineGeneral ">
+                                                                                                                                <div class="lineGeneralBox" id="qgate">
+                                                                                                                                    <div class="lineHeadTop">
+                                                                                                                                        <div class="lineHeadLeft" style="">
+                                                                                                                                            <h3 class="lineHead">HDB Line</h3>
+                                                                                                                                        </div>
+                                                                                                                                        <div class="lineHeadRight" style=""><i class="fas fa-sort enable tooltip-QGList"><span class="tooltiptext tooltip-top">Enable Re-arrange</span></i><i id="1" class="fas fa-plus-circle addList tooltip-QGList"><span class="tooltiptext tooltip-top">Add QGate</span></i></div>
+                                                                                                                                    </div>
+
+                                                                                                                                    <div class=" AutomatedQFLPage">
+                                                                                                                                        <ul class="list half" id="sortable4">
+                                                                                                                                            <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>Reword Confirmation<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                                                                                                                <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>123dsfsdf<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+                                                                                                                                                    <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>Rework Csdfsdfonfirmation<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                                                                                                                        <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>1dsfdsf23<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+
+                                                                                                                                                            <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>dsfdsf Confirmation<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                                                                                                                                <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>123<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+                                                                                                                                                                    <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>Rewordsfsdfsfdsk dfssdf<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                                                                                                                                        <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>dsfdsfdsf<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+
+                            </ul>
+                        </div>
+
+
+
+                    </div>
+                </div>
+                                                                                                                                                            <div class="col-md-4 col-lg-3 col-sm-6 lineGeneral ">
+                                                                                                                                                                <div class="lineGeneralBox" id="qgate">
+                                                                                                                                                                    <div class="lineHeadTop">
+                                                                                                                                                                        <div class="lineHeadLeft" style="">
+                                                                                                                                                                            <h3 class="lineHead">HDB Line</h3>
+                                                                                                                                                                        </div>
+                                                                                                                                                                        <div class="lineHeadRight" style=""><i class="fas fa-sort enable tooltip-QGList"><span class="tooltiptext tooltip-top">Enable Re-arrange</span></i><i id="1" class="fas fa-plus-circle addList tooltip-QGList"><span class="tooltiptext tooltip-top">Add QGate</span></i></div>
+                                                                                                                                                                    </div>
+
+                                                                                                                                                                    <div class=" AutomatedQFLPage">
+                                                                                                                                                                        <ul class="list half" id="sortable5">
+                                                                                                                                                                            <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>Reword Confirmation<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                                                                                                                                                <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>123dsfsdf<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+                                                                                                                                                                                    <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>Rework Csdfsdfonfirmation<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                                                                                                                                                        <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>1dsfdsf23<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+
+                                                                                                                                                                                            <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>dsfdsf Confirmation<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                                                                                                                                                                <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>123<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+                                                                                                                                                                                                    <li class="slide tooltip-QGList NoRework" id="li_44"><span class="tooltiptext tooltip-top " id="sp_44">Rework Confirmation</span>Rewordsfsdfsfdsk dfssdf<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(44,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(44,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(44)"></i></span></li>
+                                                                                                                                                                                                        <li class="slide tooltip-QGList NoRework" id="li_174"><span class="tooltiptext tooltip-top " id="sp_174">123</span>dsfdsfdsf<span style="float:right"><label class="container-checkbox"><input type="checkbox" onclick="AddRework(174,this,1)"><span class="checkmark"></span></label><i class="fas fa-edit editList" style="padding:3px;" onclick="editQGateMaster(174,1,this)"></i><i class="fa fa-trash deleteList" style="padding:3px;" onclick="deleteQGateMaster(174)"></i></span></li>
+
+                            </ul>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            *@
+        </div>
+    </div>
+</div>
+
+<form action="" id="AddQualityGateForm">
+
+    <div class="modal fade masterModal" id="addListQGate" role="dialog">
+        <div class="modal-dialog modal-xs" style="width: 600px;">
+            <div class="modal-content">
+
+                <div class="modal-header" style="background-image: url('../Images/header-bg.jpg')">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id=""><span class="trn">Quality Gate</span></h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="col-lg-12">
+                        <div class="title">
+                            <div class="col-md-12" id="">
+                                <label for="" class="control-label col-sm-3" style="padding-top: 5px;">
+                                    <span class="trn">Quality Gate</span>
+                                </label>
+                                <div class="dmaster col-sm-9" style="padding: 0;">
+                                    <input type="text" class="form-control input-sm validate[required]" id="txtQGateName" />
+                                </div>
+
+
+
+
+                            </div>
+                            <div class="col-md-12 Radiobuttondiv">
+                                <input type="radio" checked id="ReExamination1"
+                                       name="ReExam" value="1">
+                                <label for="">QG Re-Examination</label>
+
+                                <input type="radio" id="ReExamination2"
+                                       name="ReExam" value="2">
+                                <label for="">完成 Re-Examination</label>
+
+                                <input type="radio" id="ReExamination3"
+                                       name="ReExam" value="3">
+                                <label for="">塗装 Re-Examination</label>
+
+
+
+
+                            </div>
+                            <div class="col-md-12 Radiobuttondiv">
+                                <input type="radio" checked id="BGcolorWhite"
+                                       name="bgColor" value="white">
+                                <label for="" style="margin-right: 44px;">白</label> @*-- white*@
+
+                                <input type="radio" id="BGcolorRed"
+                                       name="bgColor" value="indianred">
+                                <label for="" style="margin-right: 44px;">赤</label>  @*-- Red*@
+
+                                <input type="radio" id="BGcolorYellow"
+                                       name="bgColor" value="yellow">
+                                <label for="">黄</label>  @*-- Yellow*@
+                            </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="modal-footer" style="margin-top: 87px; text-align: center;">
+                    <button type="submit" id="btnSubmit" class="btn btn-success btn-xs">
+                        <span class="trn">Save</span>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-xs btn-cancel btn-center" data-dismiss="modal">
+                        <span class="trn">Cancel</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+<div class="modal fade masterModal" id="Confirmationpopup" role="dialog">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+
+
+            <div class="modal-header" style="background-image: url('../Images/header-bg.jpg')">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id=""><span class="trn">Confirmation</span></h4>
+            </div>
+
+            <div class="modal-body" style="min-height: 103px;">
+                <div class="col-lg-12" style="padding: 5px;">
+                    <div class="title">
+                        <h4 class="trn" id="ConfirmationMessage"></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnSearch" class="btn btn-success btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Submit" style="width: 64px;">
+                    <span class="trn">Submit</span>
+                </button>
+                <button type="submit" id="btnCancelSearch" class="btn btn-danger btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Cancel" style="width: 64px;">
+                    <span class="trn">Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade masterModal" id="Confirmationpopup1" role="dialog">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+
+
+            <div class="modal-header" style="background-image: url('../Images/header-bg.jpg')">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id=""><span class="trn">Confirmation</span></h4>
+            </div>
+
+            <div class="modal-body" style="min-height: 103px;">
+                <div class="col-lg-12" style="padding: 5px;">
+                    <div class="title">
+                        <h4 class="trn" id="ConfirmationMessage1"></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnSearch1" onclick="PaintReExamActiveInActiveOnClick()" class="btn btn-success btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Submit" style="width: 64px;">
+                    <span class="trn">Submit</span>
+                </button>
+                <button type="submit" id="btnCancelSearch1" class="btn btn-danger btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Cancel" style="width: 64px;" data-dismiss="modal">
+                    <span class="trn">Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade masterModal" id="Confirmationpopup2" role="dialog">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+
+
+            <div class="modal-header" style="background-image: url('../Images/header-bg.jpg')">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id=""><span class="trn">Confirmation</span></h4>
+            </div>
+
+            <div class="modal-body" style="min-height: 103px;">
+                <div class="col-lg-12" style="padding: 5px;">
+                    <div class="title">
+                        <h4 class="trn" id="ConfirmationMessage2"></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnSearch2" onclick="ReExamActiveInActiveOnClickMainGate()" class="btn btn-success btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Submit" style="width: 64px;">
+                    <span class="trn">Submit</span>
+                </button>
+                <button type="submit" id="btnCancelSearch2" class="btn btn-danger btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Cancel" style="width: 64px;" data-dismiss="modal">
+                    <span class="trn">Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<form method="post" action="~/Home/CheckListMaster" id="frmpostchecklist" name="frmpostchecklist">
+    <input type="hidden" id="hdngateid" name="hdngateid" />
+    <input type="hidden" id="hdngatename" name="hdngatename" />
+</form>
+<script type="text/javascript">
+    new Sortable(document.getElementById('sortable1'));
+    new Sortable(document.getElementById('sortable2'));
+    new Sortable(document.getElementById('sortable3'));
+    new Sortable(document.getElementById('sortable4'));
+    new Sortable(document.getElementById('sortable5'));
+</script>
+

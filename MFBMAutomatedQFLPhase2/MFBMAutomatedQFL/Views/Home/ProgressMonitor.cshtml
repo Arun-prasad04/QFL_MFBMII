@@ -1,0 +1,949 @@
+﻿@model MFBMAutomatedQFL.Models.Inputs
+
+@{
+    ViewBag.Title = "ProgressMonitor";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+
+
+
+
+
+
+    .btn-comment {
+        background: #007d99;
+        padding: 2px;
+        color: #fff;
+    }
+
+        .btn-comment i {
+            font-size: 12px !important;
+            padding: 8px !important;
+        }
+
+        .btn-comment:hover {
+            color: #fff;
+        }
+
+
+
+
+    .Communication-content {
+        max-height: 260px;
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    /* Add a right margin to each icon */
+    .talk-bubbleright {
+        margin-top: 20px;
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        height: auto;
+        background-color: #a3a4a4;
+    }
+
+    .talk-bubbleleft {
+        margin-top: 20px;
+        display: inline-block;
+        position: relative;
+        width: 100%;
+        height: auto;
+        background-color: lightseagreen;
+    }
+
+
+    .triangle.left-top:after {
+        content: ' ';
+        position: absolute;
+        width: 0;
+        height: 0;
+        left: -20px;
+        right: auto;
+        top: 0px;
+        bottom: auto;
+        border: 22px solid;
+        border-color: lightseagreen transparent transparent transparent;
+    }
+
+    .triangle.right-top:before {
+        content: ' ';
+        position: absolute;
+        width: 0;
+        height: 0;
+        left: auto;
+        right: -20px;
+        top: 0;
+        bottom: auto;
+        border: 32px solid;
+        border-color: #a3a4a4 transparent transparent transparent;
+    }
+
+    .talktext {
+        color: white;
+        padding: 1em;
+    }
+
+
+
+    .text-gray {
+        color: gray !important;
+    }
+
+
+
+
+
+
+    .popup-lock-icon {
+        padding: 5px !important;
+        background: red !important;
+        color: #ffffff !important;
+        border-radius: 3px;
+        margin-left: 5px;
+        cursor: pointer;
+    }
+    /*.mCSB_dragger_bar{
+       width:15px!important;
+    }*/
+    .mCSB_scrollTools {
+        margin: 12px 15px 12px 0 !important;
+    }
+
+        .mCSB_scrollTools > .mCSB_draggerContainer > .mCSB_dragger > .mCSB_dragger_bar {
+            width: 15px !important;
+        }
+
+    .mCSB_1_scrollbar {
+        margin: 12px 0px 12px 0 !important;
+    }
+
+        .mCSB_1_scrollbar > .mCSB_draggerContainer > .mCSB_dragger > .mCSB_dragger_bar {
+            width: 4px !important;
+        }
+
+
+
+
+
+
+
+    .AutomatedQFLPage-progressmonitor0 > .mCustomScrollBox {
+        /*width: 1000px;
+               max-width: 1000px;*/
+    }
+
+    .AutomatedQFLPage-progressmonitor0 {
+        /*width: 1000px;*/
+    }
+
+    .AutomatedQFLPage-progressmonitor1 > .mCustomScrollBox {
+        /*width: 1000px !important;
+               max-width: 1000px !important;*/
+    }
+
+    .AutomatedQFLPage-progressmonitor1 {
+        /*width: 1000px !important;*/
+    }
+
+    .AutomatedQFLPage-progressmonitor-page > .mCustomScrollBox {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+
+
+    /*.progressMonitor-filter div i.icon, i.fa-chart-line {
+           padding: 5px;
+           background: #00677F;
+           color: #fff;
+           border-radius: 3px;
+           cursor: pointer;
+       }*/
+
+
+
+
+    #sketch {
+        width: 200px;
+        height: 200px;
+        border: 1px solid gray;
+        background-color: yellow;
+    }
+
+    #myimg {
+        position: absolute;
+        z-index: 1000;
+    }
+</style>
+<link href="~/Content/progressMonitor.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap-datetimepicker.js"></script>
+<script src="~/Plugins/ProgressMonitor.js"></script>
+
+
+<div class="Table_contentpanel  ">
+    <div class="Audittrackertitlebg ">
+        <span class="trn" data-trn-key="Progress Monitor" data-trn-value="">
+            Progress Monitor
+        </span>
+        @*<i class="fas fa-chart-line icon pull-right" style="padding:5px;background:#00677F;color:#fff;border-radius:3px;cursor:pointer;" onclick="NewProgress()" data-toggle="tooltip" title="New Progress" data-placement="bottom" data-original-title="New Progress"> </i>*@
+
+        <i class="fas fa-file-excel icon pull-right mr-5" id="ExportExcel" data-toggle="tooltip" data-placement="bottom" data-original-title="Export to Excel"></i>
+        @*<button class="  pull-right mr-5" style="padding:0px 2px;background:#00677F;color:#fff;border-radius:3px;cursor: pointer;" onclick="AllProgress()" data-toggle="tooltip" title="All Progress" data-placement="bottom" data-original-title="All Progress">All </button>*@
+
+
+    </div>
+    <hr style="margin-top: 1px; margin-bottom: 1px;">
+    <div class="row mt-10">
+        <div class="col-lg-5 col-sm-6 col-md-5">
+            <label for="" class=" col-sm-3">
+                <span>VIN/Prod.Iden.No</span>
+            </label>
+            <div class="col-sm-9" style="">
+                <div class="col-sm-6">
+                    <input id="vinfrom" type="text" class="form-control" placeholder="">
+
+                </div>
+
+                <div class="col-sm-6">
+                    <input id="vinto" type="text" class="form-control" placeholder="">
+
+                </div>
+            </div>
+        </div>
+        <div class="form-group col-lg-3 col-sm-6 col-md-3">
+            <label for="" class="control-label col-sm-4">
+                <span class="trn" data-trn-key="From Date" data-trn-value="">Start Date</span>
+            </label>
+            <div class="col-sm-8 dmaster" style="">
+                <input type="text" autocomplete="off" class="form-control input-sm validate[required]" id="startDate">
+            </div>
+        </div>
+        <div class="form-group col-lg-3 col-sm-6 col-md-3">
+            <label for="" class="control-label col-sm-4">
+                <span class="trn" data-trn-key="End Date" data-trn-value="">End Date</span><span style="color: Red"></span>
+            </label>
+            <div class="col-sm-8 dmaster" style="">
+                <input type="text" autocomplete="off" class="form-control input-sm validate[required]" id="endDate">
+            </div>
+        </div>
+        <div class="form-group col-lg-1 col-sm-6 col-md-1">
+            <button type="button" class="btn btn-success btn-sm" onclick="Serach()"> <i class="fas fa-search icon" data-toggle="tooltip" data-placement="bottom" data-original-title="Search"></i></button>
+        </div>
+
+
+    </div>
+    <div class="AutomatedQFLPage-progressmonitor-page">
+        <div class="panel-group" id="accordions">
+
+
+
+
+
+            @*<img src="../Images/bus.png" id="backimg" style="width:700px" />
+
+                <img src="../Images/dot1.png" class="follow" id="myimg" style="position: absolute; width:13px" />*@
+
+        </div>
+    </div>
+</div>
+
+@*<script>
+
+        $(document).ready(function () {
+            $("#backimg").on("click", function (event) {
+                var x = event.pageX - this.offsetLeft;
+                var y = event.pageY - this.offsetTop;
+                //alert("X Coordinate: " + x + " Y Coordinate: " + y);
+              $('.follow').css({ 'top': event.clientY-176 , 'left': event.clientX -21 });
+                //$('.follow').css({ 'top': event.clientY , 'left': event.clientX });
+            });
+        });
+
+    </script>*@
+
+
+<div class="modal fade masterModal" id="actual_comment" role="dialog" style="z-index: 100000;">
+    <div class="modal-dialog" style="width: 70%;">
+        <div class="modal-content">
+
+
+            <div class="modal-header" style="background-image: url('../Images/header-bg.jpg')">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id=""><span class="trn">Actual/comment</span></h4>
+            </div>
+
+            <div class="modal-body" style="min-height: 103px;">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="form-group " style="margin-bottom: 0;">
+                            <label for="" class="control-label col-sm-3" style="padding-top: 5px;">
+                                <span class="trn" data-trn-key="Actual Value/Spec" data-trn-value="">Actual Value/Spec</span> <span style="color: Red"></span>
+                            </label>
+                            <div class="dmaster col-sm-9" style="padding: 0;">
+                                <input type="text" readonly="" class="form-control input-sm" id="actualvalue">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-lg-12">
+                        <div class="form-group " style="margin-bottom: 0;">
+                            <label for="" class="control-label col-sm-3" style="padding-top: 5px;">
+                                <span class="trn" data-trn-key="Responsible" data-trn-value="">Responsible</span> <span style="color: Red"></span>
+                            </label>
+                            <div class="dmaster col-sm-9" style="padding: 0;">
+                                <input type="text" readonly="" class="form-control input-sm" id="responsible">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-lg-12">
+                        <div class="form-group " style="margin-bottom: 0;">
+                            <label for="" class="control-label col-sm-3" style="padding-top: 5px;">
+                                <span class="trn" data-trn-key="Damage Code" data-trn-value="">Damage Code</span> <span style="color: Red"></span>
+                            </label>
+                            <div class="dmaster col-sm-9" style="padding: 0;">
+                                <input type="text" readonly="" class="form-control input-sm" id="damagecode">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12" style="padding: 20px 15px;">
+                        <div class="form-group " style="margin-bottom: 0;">
+                            <label for="" class="control-label col-sm-3" style="padding-top: 5px;">
+                                <span class="trn" data-trn-key="Comments" data-trn-value="">Comments</span> <span style="color: Red"></span>
+                            </label>
+                            <div class="dmaster col-sm-9" style="padding: 0;">
+                                <textarea rows="6" readonly="" class="form-control input-sm" style="width: 100% !important;" id="textareacomments" cols=""></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" id="AttachmentUpload">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+
+            </div>
+        </div>
+    </div>
+</div>
+@*<div class="modal fade masterModal" id="delete" role="dialog" style="z-index: 100000;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+
+                <div class="modal-header" style="background-image: url('../Images/header-bg.jpg')">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id=""><span class="trn">Confirmation</span></h4>
+                </div>
+
+                <div class="modal-body" style="min-height: 103px;">
+                    <label>
+                        Deleting this VIN will delete all information about this VIN and can not be reverted back. Are you sure? Want to delete the VIN?
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" id="" class="btn btn-success btn-xs" data-toggle="tooltip"
+                            data-placement="top" title="Submit" style="width: 64px;">
+                        <span class="trn">OK</span>
+                    </button>
+                    <button type="submit" id="" class="btn btn-danger btn-xs" data-toggle="tooltip"
+                            data-placement="top" title="Cancel" style="width: 64px;">
+                        <span class="trn">Cancel</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+<div class="modal fade " data-backdrop="static" id="myModal" role="dialog">
+    <div class="modal-dialog" style="width: 90%;">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <div class="row">
+                    @*<img src="~/Images/LockIcon.png" onclick="RevertJPCompletion()" id="RevercompletionId" style="width:37px;height:37px;" />*@
+
+                    <h4 class="modal-title col-sm-10 mt-20" id="">VIN - <span id="VINHistoryVINName">19-6G5269 </span></h4>
+                    <div id="" class="form-group col-lg-2 col-sm-2 col-md-2" style="text-align: right;">
+                        <span><i id="vinDelete" class="fas fa-trash-alt" data-toggle="modal" style="font-size: 23px; color: rgb(146, 16, 13); margin-left: 0px; cursor: pointer; float: right; padding: 2px 4px 0px 10px; margin-top: 0px;"></i></span>
+
+                        <a onclick="vinHistroyExcelDownload()">
+                            <i class="fas fa-file-excel icon popup-file-icon" id="excelId" data-toggle="tooltip" data-placement="bottom" data-original-title="Export to Excel">
+
+                            </i>
+                        </a>
+
+                        <a onclick="RevertJPCompletion()">
+                            <i class="fas fa-lock icon popup-lock-icon" id="RevercompletionId" data-toggle="tooltip" title="Revert Completion" data-placement="bottom" data-original-title="Revert Completion">
+
+                            </i>
+                        </a>
+
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="modal-body progressmonitor-body" id="VINHistoryPopUp">
+                <div class="row">
+                    @*<div class="col-sm-12">
+                            <div class="progressmonitor-heading">
+                                <h4>Rework Check</h4>
+                            </div>
+                            <table class="table table-bordered table-condensed table-hover text-center mt-10">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="width:10%">PartName</th>
+                                        <th class="text-center" style="width:30%">Check Item</th>
+                                        <th class="text-center" style="width:10%">Status</th>
+                                        <th class="text-center" style="width:10%">Completed On</th>
+                                        <th class="text-center" style="width:15%">Completed by</th>
+                                        <th class="text-center" style="width:10%">Rework Checked On</th>
+                                        <th class="text-center" style="width:15%">Rework Checked by</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>バックアイカメラ</td>
+                                        <td>
+                                            <span class="pull-left" data-toggle="modal" data-target="#actual_comment"><i class="fas fa-comments" style="color:gray; font-size:18px; cursor:pointer"></i></span>
+                                            <div></div>
+                                            <div>ﾊﾞｯｸｱｲｶﾒﾗのﾓﾆﾀ写り、ｶﾒﾗ取付け向き良好の事　　バックソナー付の場合は作動を確認の事</div>
+                                        </td>
+                                        <td><span class="btn btn-check not-ok-sample" data-toggle="tooltip" title="" aria-hidden="true" data-original-title="OK"><i class="fas fa-check" style=""></i></span></td>
+                                        <td>2020/03/20 14:24 JST</td>
+                                        <td>S,Sathish kumar (575)</td>
+                                        <td>2020/03/20 14:25 JST</td>
+                                        <td>S,Sathish kumar (575)</td>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <div></div>
+                                            <div>内板ベニヤ歪み(品G-1693)-内板ベニヤ5.5ｔに歪み（反り）が発生</div>
+                                        </td>
+                                        <td><span class="btn btn-close not-ok-sample" data-toggle="tooltip" title="" aria-hidden="true" data-original-title="OK"><i class="fas fa-times" style=""></i></span></td>
+                                        <td>2020/03/20 14:24 JST</td>
+                                        <td>S,Sathish kumar (575)</td>
+                                        <td>2020/03/20 14:25 JST</td>
+                                        <td>S,Sathish kumar (575)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="progressmonitor-heading mt-10">
+                                <h4>Rework Check</h4>
+                            </div>
+                            <table class="table table-bordered table-condensed table-hover text-center tableshrink mt-10">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="width:10%">PartName</th>
+                                        <th class="text-center" style="width:30%">Check Item</th>
+                                        <th class="text-center" style="width:10%">Status</th>
+                                        <th class="text-center" style="width:10%">Completed On</th>
+                                        <th class="text-center" style="width:15%">Completed by</th>
+                                        <th class="text-center" style="width:10%">Rework Checked On</th>
+                                        <th class="text-center" style="width:15%">Rework Checked by</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>バックアイカメラ</td>
+                                        <td>
+                                            <div></div>
+                                            <div>ﾊﾞｯｸｱｲｶﾒﾗのﾓﾆﾀ写り、ｶﾒﾗ取付け向き良好の事　　バックソナー付の場合は作動を確認の事</div>
+                                        </td>
+                                        <td><span class="btn btn-check not-ok-sample" data-toggle="tooltip" title="" aria-hidden="true" data-original-title="OK"><i class="fas fa-check" style=""></i></span></td>
+                                        <td>2020/03/20 14:24 JST</td>
+                                        <td>S,Sathish kumar (575)</td>
+                                        <td>2020/03/20 14:25 JST</td>
+                                        <td>S,Sathish kumar (575)</td>
+                                    </tr>
+                                </tbody>
+                                <tbody>
+                                    <tr>
+                                        <td></td>
+                                        <td>
+                                            <span class="pull-left" data-toggle="modal" data-target="#actual_comment"><i class="fas fa-comments" style="color:gray; font-size:18px; cursor:pointer"></i></span>
+                                            <div></div>
+                                            <div>が発生</div>
+                                        </td>
+                                        <td><span class="btn btn-close not-ok-sample" data-toggle="tooltip" title="" aria-hidden="true" data-original-title="OK"><i class="fas fa-times" style=""></i></span></td>
+                                        <td>2020/03/20 14:24 JST</td>
+                                        <td>S,Sathish kumar (575)</td>
+                                        <td>2020/03/20 14:25 JST</td>
+                                        <td>S,Sathish kumar (575)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <div class="progressmonitor-heading mt-10">
+                                <h4>QG バンライン最終監査（QA） - Final Check VAN line (QA)</h4>
+                            </div>
+
+                            <table class="table table-bordered table-condensed text-center table-hover tableshrink mt-10">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center" style="width:10%">PartName</th>
+                                        <th class="text-center" style="width:30%">Check Item</th>
+                                        <th class="text-center" style="width:10%">Status</th>
+                                        <th class="text-center" style="width:10%">Checked On</th>
+                                        <th class="text-center" style="width:15%">Checked by</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>スペアタイヤ</td>
+                                        <td>
+                                            <div></div>
+                                            <div>ｽﾍﾟｱﾀｲﾔｷｬﾘｱ操作確認　　※パブコ製取付け時は社内製ハンドル積込要　特にいすゞ・日野</div>
+                                        </td>
+                                        <td><span class="btn btn-check not-ok-sample" data-toggle="tooltip" title="" aria-hidden="true" data-original-title="OK"><i class="fas fa-check" style=""></i></span></td>
+                                        <td>2020/03/17 17:43 JST</td>
+                                        <td>Masuda,Shunsuke (596)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>スペアタイヤ</td>
+                                        <td>
+                                            <div></div>
+                                            <div>ｽﾍﾟｱﾀｲﾔｷｬﾘｱ操作確認　　※パブコ製取付け時は社内製ハンドル積込要　特にいすゞ・日野</div>
+                                        </td>
+                                        <td><span class="btn btn-check not-ok-sample" data-toggle="tooltip" title="" aria-hidden="true" data-original-title="OK"><i class="fas fa-check" style=""></i></span></td>
+                                        <td>2020/03/17 17:43 JST</td>
+                                        <td>Masuda,Shunsuke (596)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>スペアタイヤ</td>
+                                        <td>
+                                            <div></div>
+                                            <div>ｽﾍﾟｱﾀｲﾔｷｬﾘｱ操作確認　　※パブコ製取付け時は社内製ハンドル積込要　特にいすゞ・日野</div>
+                                        </td>
+                                        <td><span class="btn btn-check not-ok-sample" data-toggle="tooltip" title="" aria-hidden="true" data-original-title="OK"><i class="fas fa-check" style=""></i></span></td>
+                                        <td>2020/03/17 17:43 JST</td>
+                                        <td>Masuda,Shunsuke (596)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>スペアタイヤ</td>
+                                        <td>
+                                            <div></div>
+                                            <div>ｽﾍﾟｱﾀｲﾔｷｬﾘｱ操作確認　　※パブコ製取付け時は社内製ハンドル積込要　特にいすゞ・日野</div>
+                                        </td>
+                                        <td><span class="btn btn-check not-ok-sample" data-toggle="tooltip" title="" aria-hidden="true" data-original-title="OK"><i class="fas fa-check" style=""></i></span></td>
+                                        <td>2020/03/17 17:43 JST</td>
+                                        <td>Masuda,Shunsuke (596)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>スペアタイヤ</td>
+                                        <td>
+                                            <div></div>
+                                            <div>ｽﾍﾟｱﾀｲﾔｷｬﾘｱ操作確認　　※パブコ製取付け時は社内製ハンドル積込要　特にいすゞ・日野</div>
+                                        </td>
+                                        <td><span class="btn btn-check not-ok-sample" data-toggle="tooltip" title="" aria-hidden="true" data-original-title="OK"><i class="fas fa-check" style=""></i></span></td>
+                                        <td>2020/03/17 17:43 JST</td>
+                                        <td>Masuda,Shunsuke (596)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>スペアタイヤ</td>
+                                        <td>
+                                            <div></div>
+                                            <div>ｽﾍﾟｱﾀｲﾔｷｬﾘｱ操作確認　　※パブコ製取付け時は社内製ハンドル積込要　特にいすゞ・日野</div>
+                                        </td>
+                                        <td><span class="btn btn-check not-ok-sample" data-toggle="tooltip" title="" aria-hidden="true" data-original-title="OK"><i class="fas fa-check" style=""></i></span></td>
+                                        <td>2020/03/17 17:43 JST</td>
+                                        <td>Masuda,Shunsuke (596)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>スペアタイヤ</td>
+                                        <td>
+                                            <div></div>
+                                            <div>ｽﾍﾟｱﾀｲﾔｷｬﾘｱ操作確認　　※パブコ製取付け時は社内製ハンドル積込要　特にいすゞ・日野</div>
+                                        </td>
+                                        <td><span class="btn btn-check not-ok-sample" data-toggle="tooltip" title="" aria-hidden="true" data-original-title="OK"><i class="fas fa-check" style=""></i></span></td>
+                                        <td>2020/03/17 17:43 JST</td>
+                                        <td>Masuda,Shunsuke (596)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>スペアタイヤ</td>
+                                        <td>
+                                            <div></div>
+                                            <div>ｽﾍﾟｱﾀｲﾔｷｬﾘｱ操作確認　　※パブコ製取付け時は社内製ハンドル積込要　特にいすゞ・日野</div>
+                                        </td>
+                                        <td><span class="btn btn-check not-ok-sample" data-toggle="tooltip" title="" aria-hidden="true" data-original-title="OK"><i class="fas fa-check" style=""></i></span></td>
+                                        <td>2020/03/17 17:43 JST</td>
+                                        <td>Masuda,Shunsuke (596)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>スペアタイヤ</td>
+                                        <td>
+                                            <div></div>
+                                            <div>ｽﾍﾟｱﾀｲﾔｷｬﾘｱ操作確認　　※パブコ製取付け時は社内製ハンドル積込要　特にいすゞ・日野</div>
+                                        </td>
+                                        <td><span class="btn btn-check not-ok-sample" data-toggle="tooltip" title="" aria-hidden="true" data-original-title="OK"><i class="fas fa-check" style=""></i></span></td>
+                                        <td>2020/03/17 17:43 JST</td>
+                                        <td>Masuda,Shunsuke (596)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>スペアタイヤ</td>
+                                        <td>
+                                            <div></div>
+                                            <div>ｽﾍﾟｱﾀｲﾔｷｬﾘｱ操作確認　　※パブコ製取付け時は社内製ハンドル積込要　特にいすゞ・日野</div>
+                                        </td>
+                                        <td><span class="btn btn-check not-ok-sample" data-toggle="tooltip" title="" aria-hidden="true" data-original-title="OK"><i class="fas fa-check" style=""></i></span></td>
+                                        <td>2020/03/17 17:43 JST</td>
+                                        <td>Masuda,Shunsuke (596)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>スペアタイヤ</td>
+                                        <td>
+                                            <div></div>
+                                            <div>ｽﾍﾟｱﾀｲﾔｷｬﾘｱ操作確認　　※パブコ製取付け時は社内製ハンドル積込要　特にいすゞ・日野</div>
+                                        </td>
+                                        <td><span class="btn btn-check not-ok-sample" data-toggle="tooltip" title="" aria-hidden="true" data-original-title="OK"><i class="fas fa-check" style=""></i></span></td>
+                                        <td>2020/03/17 17:43 JST</td>
+                                        <td>Masuda,Shunsuke (596)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>スペアタイヤ</td>
+                                        <td>
+                                            <div></div>
+                                            <div>ｽﾍﾟｱﾀｲﾔｷｬﾘｱ操作確認　　※パブコ製取付け時は社内製ハンドル積込要　特にいすゞ・日野</div>
+                                        </td>
+                                        <td><span class="btn btn-check not-ok-sample" data-toggle="tooltip" title="" aria-hidden="true" data-original-title="OK"><i class="fas fa-check" style=""></i></span></td>
+                                        <td>2020/03/17 17:43 JST</td>
+                                        <td>Masuda,Shunsuke (596)</td>
+                                    <tr>
+                                        <td>スペアタイヤ</td>
+                                        <td>
+                                            <div></div>
+                                            <div>ｽﾍﾟｱﾀｲﾔｷｬﾘｱ操作確認　　※パブコ製取付け時は社内製ハンドル積込要　特にいすゞ・日野</div>
+                                        </td>
+                                        <td><span class="btn btn-check not-ok-sample" data-toggle="tooltip" title="" aria-hidden="true" data-original-title="OK"><i class="fas fa-check" style=""></i></span></td>
+                                        <td>2020/03/17 17:43 JST</td>
+                                        <td>Masuda,Shunsuke (596)</td>
+                                    <tr>
+                                        <td>スペアタイヤ</td>
+                                        <td>
+                                            <div></div>
+                                            <div>ｽﾍﾟｱﾀｲﾔｷｬﾘｱ操作確認　　※パブコ製取付け時は社内製ハンドル積込要　特にいすゞ・日野</div>
+                                        </td>
+                                        <td><span class="btn btn-check not-ok-sample" data-toggle="tooltip" title="" aria-hidden="true" data-original-title="OK"><i class="fas fa-check" style=""></i></span></td>
+                                        <td>2020/03/17 17:43 JST</td>
+                                        <td>Masuda,Shunsuke (596)</td>
+                                    </tr>
+                                    </tr>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>*@
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+<div class="modal fade masterModal" id="Confirmationpopup" role="dialog" style="z-index: 100000;">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title ">
+                    <span class="trn">Confirmation</span>
+                </h4>
+            </div>
+            <div class="modal-body" style="min-height: 80px;">
+                <div class="col-lg-12" style="padding: 5px;">
+                    <div class="title">
+                        <span id="ConfirmationMessage"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" id="CompletionConfirm" class="btn btn-success btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Ok" style="width: 64px; display:none;">
+                    <span class="trn">OK</span>
+                </button>
+
+                <button type="button" id="FinalPopupClose" class="btn btn-success btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Ok" style="width: 64px; display:none;">
+                    <span class="trn">OK</span>
+                </button>
+
+                <button type="submit" id="btnCancel" class="btn btn-danger btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Cancel" style="width: 64px;">
+                    <span class="trn">Cancel</span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade masterModal" id="ConfirmationpopupRevert" role="dialog" style="z-index: 100000;">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title ">
+                    <span class="trn">Confirmation</span>
+                </h4>
+            </div>
+            <div class="modal-body" style="min-height: 80px;">
+                <div class="col-lg-12" style="padding: 5px;">
+                    <div class="title">
+                        <h4> <span id="ConfirmationMessageRevert"></span></h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" id="" onclick="RevertCompetionYes()" class="btn btn-success btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Submit" style="width: 64px;">
+                    <span class="trn">Yes</span>
+                </button>
+                <button type="submit" id="" class="btn btn-danger btn-xs" data-dismiss="modal" data-toggle="tooltip"
+                        data-placement="top" title="Cancel" style="width: 64px;">
+                    <span class="trn">Cancel</span>
+                </button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<form action="" id="">
+
+    <div class="modal fade masterModal" id="vinComment" role="dialog" style="">
+
+        <div class="modal-dialog" style="width: 50%;">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal">
+
+                        ×
+
+                    </button>
+
+                    <h4 class="modal-title" id="">
+                        <span class="trn">Reasonfordeleting</span>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12">
+                        <label for="" class="control-label col-sm-2" style="padding-top: 5px; text-align:right;">
+                            <span class="trn">Comments</span>
+                        </label>
+
+                        <div class="col-sm-10">
+                            <textarea rows="5" id="resoanComment"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer" style="margin-top: 25px; clear: both;">
+
+                    <button type="button" class="btn btn-danger btn-xs btn-cancel btn-center" id="okDismiss" data-toggle="tooltip" data-placement="top" title="Cancel">
+
+                        <span class="trn">OK</span>
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+<form action="../Home/ExcelDownloadforIssueDate" id="exceldownload" method="post">
+    @Html.HiddenFor(m => m.vinfrom, new { @id = "IssueDateVINFrom" })
+    @Html.HiddenFor(m => m.vinto, new { @id = "IssueDateVINvinto" })
+    @Html.HiddenFor(m => m.plantid, new { @id = "IssuePlantId" })
+    @Html.HiddenFor(m => m.fromdate, new { @id = "IssueFromDate" })
+    @Html.HiddenFor(m => m.todate, new { @id = "IssueToDate" })
+
+    <input type="text" id="bulkVIN" hidden="hidden" />
+
+    <div class="modal fade masterModal" id="ConfirmationpopupforExcelDownload" role="dialog">
+        <div class="modal-dialog modal-xs" style="width:40%;">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal">
+
+                        ×
+
+                    </button>
+
+                    <h4 class="modal-title ">
+                        <span class="trn">ExporttoExcel</span>
+                    </h4>
+                </div>
+                @*<div class="modal-body" style="min-height: 80px;">
+                        <div class="col-lg-12" style="padding: 5px;">
+                            <div class="title">
+                                <span id="ConfirmationMessage"></span>
+                            </div>
+                        </div>
+                    </div>*@
+
+                <div class="modal-footer" style="text-align: center;">
+
+                    <button name="DownloadVINData" value="DownloadVINData" type="button" id="ExcelDownloadVINData" onclick="vinHistroyExcelDownloadExcel()" class="btn btn-success btn-xs" data-toggle="tooltip"
+                            data-placement="top" title="Ok" style="width: 119px;">
+                        <span class="trn">DownloadVINData</span>
+                    </button>
+
+                    <button name="DownloadIssueData" value="DownloadIssueData" type="submit" id="ExcelDownloadIssueData" class="btn btn-success btn-xs" data-toggle="tooltip"
+                            data-placement="top" title="Ok" style="width: 128px;">
+                        <span class="trn">DownloadIssueData</span>
+                    </button>
+
+                    <button name="HistoryVinasZip" value="HistoryVinasZip" type="button" id="ExcelHistoryVinasZip" onclick="vinHistroyExcelDownloadExcel1()" class="btn btn-success btn-xs" data-toggle="tooltip"
+                            data-placement="top" title="Ok" style="width: 119px;">
+                        <span class="trn">VIN History as Zip</span>
+                    </button>
+
+
+
+                    @*<button type="button" id="FinalPopupClose" class="btn btn-success btn-xs" data-toggle="tooltip"
+                                  data-placement="top" title="Ok" style="width: 64px; display:none;">
+                            <span class="trn">OK</span>
+                        </button>
+
+                        <button type="submit" id="btnCancel" class="btn btn-danger btn-xs" data-toggle="tooltip"
+                                data-placement="top" title="Cancel" style="width: 64px;">
+                            <span class="trn">Cancel</span>
+                        </button>*@
+
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<div class="modal fade masterModal" id="NotOkUploadImage" role="dialog" style="z-index: 100000;">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title ">
+                    <span class="trn">Image</span>
+                </h4>
+            </div>
+            <div class="modal-body" style="min-height: 80px;" id="notokImageappend">
+                @*<img src="~/Images/background.png" class="image-thumbnail" alt="Forest" style="width:100%; ">*@
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="submit" id="btnNotOKcancelImage" class="btn btn-danger btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Cancel" style="width: 64px;" data-dismiss="modal">
+                    <span class="trn">Close</span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" data-backdrop="static" id="ReworkAndReExamCommunicate" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align:center" id="ReworkAndReExamCommunicateTitle"><span class="trn"></span> </h4>
+            </div>
+
+            <div class="modal-body">
+                @* BindingCommunicationDetails*@
+                <div class="Communication-content" id="BindingCommunicationDetails">
+
+
+                </div>
+                @*                        <textarea class="form-control mt-5px" rows="5" id="txtCommunication" style=""></textarea>*@
+
+
+            </div>
+            <div class="modal-footer text-center">
+                <h4> <span style="color:red;display:none;" id="CommunicateValidation">Please enter value</span></h4>
+                <input type="submit" value="Cancel" id="btnCommunicationclose" onclick="btnCloseComunication()" class="btn btn-danger trn" />
+                <input type="submit" value="Submit" id="btnCommunicationClick" onclick="btnSubmittCommunication()" class="btn btn-success btn-cancel btn-center trn" data-toggle="modal" />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+
+        $('#startDate').datetimepicker({ autoclose: true, pickTime: false, minView: 2, format: "dd/mm/yyyy" }).datetimepicker('update', new Date()).on('changeDate',
+            function (selected) {
+                var minDate = new Date(selected.date.valueOf());
+                $("#endDate").datetimepicker('setStartDate', minDate);
+            })
+
+
+        $("#endDate").datetimepicker({
+            autoclose: true,
+            pickTime: false,
+            minView: 2,
+            format: "dd/mm/yyyy"
+        });
+        $(".datepicker").datetimepicker({
+            autoclose: true,
+            pickTime: false,
+            minView: 2,
+            format: "dd/mm/yyyy"
+        });
+        $('#startDate').val('');
+    });
+</script>
+

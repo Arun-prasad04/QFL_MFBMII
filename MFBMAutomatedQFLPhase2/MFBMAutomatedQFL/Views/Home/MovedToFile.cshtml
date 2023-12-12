@@ -1,0 +1,72 @@
+﻿@model MFBMAutomatedQFL.Models.QGateMaster
+@{
+    ViewBag.Title = "File";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/Sortable.js"></script>
+<script src="~/Plugins/MovedToFile.js"></script>
+<link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.dataTables.js"></script>
+<style>
+    .error {
+        border: 1px solid red !important;
+    }
+</style>
+<div id="tables">
+    <table id="tblFiles" style="width: 886px;" class="table table-bordered table-condensed table-hover">
+        <thead>
+            <tr>
+                <th>
+                    <span class='trn'>Vin</span>
+                </th>
+                @*<th>
+                        <span class='trn'>Vehicle Type-Variant</span>
+                    </th>*@
+                <th>
+                    <span class='trn'>ModelName</span>
+                </th>
+
+
+            </tr>
+        </thead>
+        @*<tbody>
+                <tr>
+                    <td>Filename 12345.xlsx</td>
+                    <td></td>
+                    <td>S, Sathish Kumar (575)</td>
+                    <td>01-10-2018 14:12 JST</td>
+                </tr>
+                <tr>
+                    <td>Filename 12345.xlsx</td>
+                    <td></td>
+                    <td>S, Sathish Kumar (575)</td>
+                    <td>01-10-2018 14:12 JST</td>
+                </tr>
+                <tr>
+                    <td>Filename 12345.xlsx</td>
+                    <td></td>
+                    <td>S, Sathish Kumar (575)</td>
+                    <td>01-10-2018 14:12 JST</td>
+                </tr>
+                <tr>
+                    <td>Filename 12345.xlsx</td>
+                    <td></td>
+                    <td>S, Sathish Kumar (575)</td>
+                    <td>01-10-2018 14:12 JST</td>
+                </tr>
+                <tr>
+                    <td>Filename 12345.xlsx</td>
+                    <td></td>
+                    <td>S, Sathish Kumar (575)</td>
+                    <td>01-10-2018 14:12 JST</td>
+                </tr>
+                <tr>
+                    <td>Filename 12345.xlsx</td>
+                    <td></td>
+                    <td>S, Sathish Kumar (575)</td>
+                    <td>01-10-2018 14:12 JST</td>
+                </tr>
+            </tbody>*@
+    </table>
+</div>

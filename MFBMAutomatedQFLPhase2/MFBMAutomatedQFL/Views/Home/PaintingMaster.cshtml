@@ -1,0 +1,249 @@
+﻿@{
+    ViewBag.Title = "PaintingMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+
+    .panel-heading {
+        background-color: #007A93 !important;
+        color: #fff !important;
+        padding: 8px !important;
+        border-radius: 0px !important;
+    }
+    .PaintImage {
+        float: right;
+        margin-right: 5px;
+    }
+    .error {
+        border: 1px solid red !important;
+    }
+</style>
+
+<link href="~/Content/font_awesome.min.css" rel="stylesheet" />
+<link href="~/Content/font_awesome_all.min.css" rel="stylesheet" />
+<script src="~/Plugins/PaintingMaster.js"></script>
+<div class="Table_contentpanel">
+
+    <div class="Audittrackertitlebg ">
+        <span class="trn" data-trn-key="Painting Master" data-trn-value="">
+            Painting Master
+        </span>
+
+
+    </div>
+
+
+    @*LineTables*@
+
+    <div id="LineTables">
+
+
+
+        @*<div class="panel-heading" style="border-radius: 5px 5px 0px 0px">
+                <h4 class="panel-title">HDB Line</h4>
+            </div>
+
+            <table class="table table-bordered" id="HDBLinetable">
+                <thead>
+                    <tr class="tblheadtext">
+
+                        <th style="text-align: center; width: 15%; ">
+                            <span>item1</span>
+                            <img src="~/Images/Dot.png" class="PaintImage" />
+                        </th>
+
+                        <th style="text-align: center; width: 15%; ">
+                            <span>item1</span>
+                            <img src="~/Images/traingle.png" class="PaintImage" />
+
+                        </th>
+
+                        <th style="text-align: center; width: 15%">
+                            <span>item1</span>
+                            <img src="~/Images/Rectangle.png" class="PaintImage" />
+                        </th>
+
+                        <th style="text-align: center; width: 15%;">
+                            <span>item1</span>
+                            <img src="~/Images/Yellowstar.png" class="PaintImage" />
+                        </th>
+
+                        <th style="text-align: center; width: 15%;">
+                            <span>item1</span>
+                            <img src="~/Images/BlueDimand.png" class="PaintImage" />
+                        </th>
+
+                        <th style="text-align: center; width: 15%;">
+                            <span>item1</span>
+                            <img src="~/Images/pinkstar.png" class="PaintImage" />
+                        </th>
+
+
+
+
+
+                    </tr>
+                    <tr class="tblheadtext">
+
+                        <th style="text-align: center; width: 15%; ">
+                            <span>item1</span>
+
+                            <img src="~/Images/Yellowsmallstar1.png" class="PaintImage" />
+                        </th>
+                        <th style="text-align: center; width: 15%; ">
+                            <span>item1</span>
+                            <img src="~/Images/Circle.png" class="PaintImage" />
+                        </th>
+                        <th style="text-align: center; width: 15%; ">
+                            <span>item1</span>
+                            <img src="~/Images/BrownSpad.png" class="PaintImage" />
+                        </th>
+                        <th style="text-align: center; width: 15%; ">
+                            <span>item1</span>
+                            <img src="~/Images/pinkstar.png" class="PaintImage" />
+                        </th>
+                        <th style="text-align: center; width: 15%; ">
+                            <span>item1</span>
+                            <img src="~/Images/BlackPlus.png" class="PaintImage" />
+                        </th>
+                        <th style="text-align: center; width: 15%; ">
+                            <span>item1</span>
+                            <img src="~/Images/BlackHeart.png" class="PaintImage" />
+                        </th>
+                    </tr>
+                </thead>
+
+            </table>
+
+
+
+
+            <div class="panel-heading">
+                <h4 class="panel-title">LDB Line</h4>
+            </div>
+
+            <table class="table table-bordered" id="LDBLinetable">
+                <thead>
+                    <tr class="tblheadtext">
+
+                        <th style="text-align: center; width: 15%; " onclick="LDBLineOnClick(1)">
+                            <span>item1</span>
+                            <img src="~/Images/Dot.png" class="PaintImage" />
+                        </th>
+
+                        <th style="text-align: center; width: 15%; " onclick="LDBLineOnClick(2)">
+                            <span>item1</span>
+                            <img src="~/Images/traingle.png" class="PaintImage" />
+
+                        </th>
+
+                        <th style="text-align: center; width: 15%">
+                            <span>item1</span>
+                            <img src="~/Images/Rectangle.png" class="PaintImage" />
+                        </th>
+
+                        <th style="text-align: center; width: 15%;">
+                            <span>item1</span>
+                            <img src="~/Images/Yellowstar.png" class="PaintImage" />
+                        </th>
+
+                        <th style="text-align: center; width: 15%;">
+                            <span>item1</span>
+                            <img src="~/Images/BlueDimand.png" class="PaintImage" />
+                        </th>
+
+                        <th style="text-align: center; width: 15%;">
+                            <span>item1</span>
+                            <img src="~/Images/pinkstar.png" class="PaintImage" />
+                        </th>
+
+
+
+
+
+                    </tr>
+                    <tr class="tblheadtext">
+
+                        <th style="text-align: center; width: 15%; ">
+                            <span>item1</span>
+                            <img src="~/Images/Yellowsmallstar1.png" class="PaintImage" />
+
+                        </th>
+                        <th style="text-align: center; width: 15%; ">
+                            <span>item1</span>
+                            <img src="~/Images/Circle.png" class="PaintImage" />
+                        </th>
+                        <th style="text-align: center; width: 15%; ">
+                            <span>item1</span>
+                            <img src="~/Images/BrownSpad.png" class="PaintImage" />
+                        </th>
+                        <th style="text-align: center; width: 15%; ">
+                            <span>item1</span>
+                            <img src="~/Images/pinkstar.png" class="PaintImage" />
+                        </th>
+                        <th style="text-align: center; width: 15%; ">
+                            <span>item1</span>
+                            <img src="~/Images/BlackPlus.png" class="PaintImage" />
+                        </th>
+                        <th style="text-align: center; width: 15%; ">
+                            <span>item1</span>
+                            <img src="~/Images/BlackHeart.png" class="PaintImage" />
+                        </th>
+                    </tr>
+                </thead>
+
+            </table>*@
+
+    </div>
+
+
+
+    <form action="" id="AddEditPaintForm">
+
+        <div class="modal fade masterModal" id="AddEditPaintFormModal" role="dialog">
+            <div class="modal-dialog modal-xs" style="width: 600px;">
+                <div class="modal-content">
+
+                    <div class="modal-header" style="background-image: url('../Images/header-bg.jpg')">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title" ><span class="trn" id="Paintingtitle"></span></h4>
+                    </div>
+
+                    <div class="modal-body">
+                        <div class="col-lg-12">
+                            <div class="title">
+                                <div class="col-md-12" id="">
+                                    <label for="" class="control-label col-sm-3" style="padding-top: 5px;">
+                                        <span class="trn">Painting Values</span>
+                                    </label>
+                                    <div class="dmaster col-sm-9" style="padding: 0;">
+                                        <input type="text" class="form-control input-sm validate[required]" id="txtPaintingValues" />
+                                    </div>
+
+
+
+
+                                </div>
+                             
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer" style="margin-top: 48px; text-align: center;">
+                        <button type="submit" id="btnSubmitPainting" class="btn btn-success btn-xs">
+                            <span class="trn">Save</span>
+                        </button>
+                        <button type="button" class="btn btn-danger btn-xs btn-cancel btn-center" data-dismiss="modal">
+                            <span class="trn">Cancel</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </form>
+
+    <div class="AutomatedQFLPage-PaintMaster-page">
+
+    </div>
+</div>

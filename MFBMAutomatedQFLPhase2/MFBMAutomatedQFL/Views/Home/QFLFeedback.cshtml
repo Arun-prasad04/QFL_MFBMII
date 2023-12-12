@@ -1,0 +1,2883 @@
+﻿@{
+    ViewBag.Title = "QFLFeedback";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<style>
+    .btn-light-green {
+        color: #fff;
+        background-color: #bbe71f;
+        border-color: #bbe71f;
+    }
+
+        .clonenumber {
+            border-radius: 50%;
+            /*padding: 5px;*/
+            /*       border: 3px solid red;
+        */ text-align: center;
+            font-size: 12px;
+            width: 21px;
+            position: absolute;
+            /*        color: red;
+        */ font-weight: bolder;
+            z-index: 1024;
+            margin-left: 8px;
+        }
+
+        .pointer {
+            cursor: pointer;
+        }
+
+        .Erase {
+            /*            position: absolute;
+    */ margin-right: 20px;
+            float: right;
+            display: block;
+        }
+
+        .image-thumbnail {
+            border: 1px solid #b5b0b0;
+            border-radius: 4px;
+            padding: 5px;
+            width: 150px;
+        }
+
+        .mCSB_dragger_bar {
+            width: 15px !important;
+        }
+
+
+        .Communication-content {
+            max-height: 260px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* Add a right margin to each icon */
+        .talk-bubbleright {
+            margin-top: 20px;
+            display: inline-block;
+            position: relative;
+            width: 100%;
+            height: auto;
+            background-color: #a3a4a4;
+        }
+
+        .talk-bubbleleft {
+            margin-top: 20px;
+            display: inline-block;
+            position: relative;
+            width: 100%;
+            height: auto;
+            background-color: lightseagreen;
+        }
+
+
+        .triangle.left-top:after {
+            content: ' ';
+            position: absolute;
+            width: 0;
+            height: 0;
+            left: -20px;
+            right: auto;
+            top: 0px;
+            bottom: auto;
+            border: 22px solid;
+            border-color: lightseagreen transparent transparent transparent;
+        }
+
+        .triangle.right-top:before {
+            content: ' ';
+            position: absolute;
+            width: 0;
+            height: 0;
+            left: auto;
+            right: -20px;
+            top: 0;
+            bottom: auto;
+            border: 32px solid;
+            border-color: #a3a4a4 transparent transparent transparent;
+        }
+
+        .talktext {
+            color: white;
+            padding: 1em;
+        }
+
+        .font-weights {
+            font-weight: bold
+        }
+
+
+        .slick-disabled {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .error {
+            border: 1px solid red !important;
+        }
+
+        .actualcomments {
+            max-height: 450px !important;
+            overflow-y: scroll !important;
+        }
+
+        .dataTables_length {
+            display: none;
+        }
+
+        .dataTables_filter {
+            display: none;
+        }
+
+        table.dataTable thead .sorting, table.dataTable thead .sorting_asc, table.dataTable thead .sorting_desc {
+            background: none;
+        }
+
+        .modal-bodySig {
+            position: relative;
+            padding: 15px;
+            min-height: 258px;
+        }
+
+        .modal-bodySig1 {
+            position: relative;
+            padding: 15px;
+            min-height: 85px;
+        }
+
+        .disabled-wrapper {
+            display: inline-block;
+            cursor: not-allowed;
+            /*  margin-left:24%*/
+        }
+
+        .ml-5 {
+            margin-left: 5px !important;
+        }
+
+        .bg-red {
+            background: red !important;
+        }
+
+        .modal-body-scroll {
+            max-height: 350px;
+            overflow-y: scroll;
+        }
+
+        .border-separate {
+            border-collapse: separate !important;
+        }
+
+        /* #follow_1 {
+                position: absolute;
+                z-index: 1000;
+            }*/
+
+        .PaintImage {
+            float: right;
+            /*            margin-right: 5px;
+    */ position: absolute;
+            z-index: 1000;
+            width: 18px;
+            margin-left: 12px;
+        }
+
+        .PaintImage2 {
+            float: right;
+            margin-right: 5px;
+        }
+
+        .ml--10 {
+            margin-left: -10px !important;
+        }
+
+  /*  .brcolor{
+        background-color:palevioletred !important;
+    }*/
+</style>
+
+
+
+<link href="~/Content/font_awesome.min.css" rel="stylesheet" />
+<link href="~/Content/font_awesome_all.min.css" rel="stylesheet" />
+
+<script src="~/Plugins/Signature.js"></script>
+<link href="~/Content/Signature.css" rel="stylesheet" />
+
+
+<link href="~/Content/slick-style.css" rel="stylesheet" />
+<link href="~/Content/slick.css" rel="stylesheet" />
+<link href="~/Content/feedback.css" rel="stylesheet" />
+
+<script src="~/Plugins/adapter.min.js"></script>
+@*<script src="~/Plugins/instascan.js"></script>
+    <script src="~/Plugins/QrCodeScanner.js"></script>*@
+<script src="~/Scripts/html5-qrcode.min.js"></script>
+<script src="~/Plugins/QFLFeedBack.js"></script>
+
+<link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.dataTables.js"></script>
+@*<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.0.0-rc.5/dist/html2canvas.min.js">
+    </script>*@
+<script src="~/Scripts/html2canvas.min.js"></script>
+
+
+<script type="text/javascript">
+    //function startScan() {
+    //    //HTML video component for web camera
+    //    var videoComponent = $("#webcameraPreview");
+    //    //HTML select component for cameras change
+    //    var webcameraChanger = $("#webcameraChanger");
+    //    var options = {};
+    //    //init options for scanner
+    //    options = initVideoObjectOptions("webcameraPreview");
+    //    //var cameraId = 0;
+
+    //    initScanner(options);
+    //    // Internet Explorer 6-11
+    //    var isIE = false || !!document.documentMode;
+
+    //    // Edge 20+
+    //    var isEdge = !isIE && !!window.StyleMedia;
+    //    if (isIE || isEdge) {
+    //        Instascan.Camera.getCameras().then(function (cameras) {
+    //            initCamera(0);
+    //        });
+    //        $("#webcameraPreviewdiv").show();
+    //    }
+    //    else {
+    //        Instascan.Camera.getCameras().then(function (cameras) {
+    //            initCamera(cameras.length - 1);
+    //        });
+    //        $("#webcameraPreviewdiv").show();
+    //    }
+    //    //initAvaliableCameras(
+    //    //    webcameraChanger,
+    //    //    function () {
+    //    //        cameraId = parseInt(getSelectedCamera(webcameraChanger));
+    //    //    }
+    //    //);
+
+    //    //initCamera(1);
+
+
+    //    scanStart(function (data) {
+    //        $('#txtVinQRNumber').val(data);
+
+    //    });
+    //}
+</script>
+
+<script>
+
+    function startScan() {
+
+
+
+
+        function docReady(fn) {
+            // see if DOM is already available
+            if (document.readyState === "complete"
+                || document.readyState === "interactive") {
+                // call on next available tick
+                setTimeout(fn, 1);
+            } else {
+                document.addEventListener("DOMContentLoaded", fn);
+            }
+        }
+
+        docReady(function () {
+            var resultContainer = document.getElementById('qr-reader-results');
+            var lastResult, countResults = 0;
+
+            function onScanSuccess(qrCodeMessage) {
+                //alert(qrCodeMessage);
+                $("#txtVinQRNumber").val(qrCodeMessage)
+                $("#qr-reader").hide();
+                $("#qr-reader-results").hide();
+                if (qrCodeMessage !== lastResult) {
+                    ++countResults;
+                    lastResult = qrCodeMessage;
+                    resultContainer.innerHTML
+                        += `<div>[${countResults}] - ${qrCodeMessage}</div>`;
+                }
+
+                html5QrcodeScanner.clear();
+            }
+
+            var html5QrcodeScanner = new Html5QrcodeScanner(
+                "qr-reader", { fps: 10, qrbox: 250 });
+            html5QrcodeScanner.render(onScanSuccess);
+            $("#qr-reader").show();
+            $("#qr-reader-results").show();
+
+            $(document).ready(function () {
+                $("#qr-reader__dashboard_section_swaplink").hide();
+                $("#permission").css('display', 'none').trigger("click");
+                $("#start").css('display', 'none').trigger("click");
+            });
+
+        });
+
+    }
+</script>
+
+
+
+<div class="Table_contentpanel  ">
+    <div class="Audittrackertitlebg text-center">
+        <span id="qflfeedbacklabel" class="trn pull-left" data-trn-key="QFL Feedback" data-trn-value="">QFL Feedback</span>
+        <span style="display:none;" onclick="CheckListItemDetailsforEmail()" id="Notificationcount" class="badge pull-left bg-red ml-5">0</span>
+        <span class="" id="SelectedItems" hidden>
+            <label class="ml-10"><span class="trn">VIN</span> : <span id="selectedvin"></span></label>
+            <label class="ml-10"><span class="trn">Model</span> : <span id="selectedmodel"></span></label>
+            <label class="ml-10"><span class="trn">Line</span> : <span id="selectedline"></span></label>
+        </span>
+    </div>
+    <hr style="margin-top: 1px; margin-bottom: 1px;">
+
+    <div class="row m-t-5px" id="feedback-search-content">
+        <div class=" col-sm-4 col-xs-4">
+            <label class="pull-right"><span class="trn">Enter VIN + Model</span></label>
+        </div>
+        <div class=" col-sm-4 col-xs-4">
+            <input type="text" maxlength="17" id="txtVinQRNumber" required class="form-control input-sm validate[required] inputvalidation " style="border: 1px solid rgb(204, 204, 204);text-transform: uppercase  ">
+
+        </div>
+        <div class=" col-sm-4 col-xs-4">
+
+            <button class="btn btn-success" style="margin-top: -8px" id="feedback-search"><i class="fa fa-search" aria-hidden="true"></i></button>
+            <i class="fa fa-qrcode fa-2x" style="margin-left: 5px;" aria-hidden="true" onclick="startScan();"></i>
+
+        </div>
+    </div>
+    @*<div id="webcameraPreviewdiv" style="width: 70%; height: 70%;">
+            <hr>
+            <video id="webcameraPreview" playsinline autoplay muted loop style="width: 100%;"></video>
+            <hr>
+            <ul></ul>
+        </div>*@
+    <div class="row m-t-30">
+        <div class="col-md-3"></div>
+        <div class="col-md-6">
+            <div id="qr-reader" style="width:100%;display:none"></div>
+            <div id="qr-reader-results" style="display:none"></div>
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    <div id="feedback-details">
+
+        <section class="blue">
+            <div class="">
+
+                <div class="slider one-time" id="GateDetailList">
+                    @*<div class="multiple feedback-gate gate-btn">
+                        <span class="   ">
+                            <a title="View" href="#" class="text-white">
+                                <span class="trn" data-trn-key="Total Check Items" data-trn-value="">Gate 1</span>
+                            </a>
+                        </span>
+                    </div>
+                    <div class="multiple feedback-gate gate-btn">
+                        <span class="  ">
+                            <a title="View" href="#" class="text-white">
+                                <span class="trn" data-trn-key="Total Check Items" data-trn-value="">Gate 2</span>
+                            </a>
+                        </span>
+                    </div>
+                    <div class="multiple feedback-gate gate-btn gate-active">
+                        <span class="  ">
+                            <a title="View" href="#" class="text-white">
+                                <span class="trn" data-trn-key="Total Check Items" data-trn-value="">Gate 3</span>
+                            </a>
+                        </span>
+                    </div>
+                    <div class="multiple feedback-gate gate-btn">
+                        <span class="  ">
+                            <a title="View" href="#" class="text-white">
+                                <span class="trn" data-trn-key="Total Check Items" data-trn-value="">Gate 4</span>
+                            </a>
+                        </span>
+                    </div>
+                    <div class="multiple feedback-gate gate-btn">
+                        <span class="">
+                            <a title="" href="#" data-original-title="View" class="text-white">
+
+                                <span class="trn" data-trn-key="Ok" data-trn-value="">Gate 5
+                            </a>
+                        </span>
+                    </div>
+                    <div class="multiple feedback-gate gate-btn">
+                        <span class="">
+                            <a title="View" href="#" class="text-white">
+
+                                <span class="trn" data-trn-key="Not Ok" data-trn-value="">Gate 6
+                            </a>
+                        </span>
+                    </div>*@
+                </div>
+
+
+
+
+
+            </div>
+        </section>
+        @*<table style="" class="table table-bordered table-condensed table-hover feedback-gate-heading text-center m-t-5px m-b-5">
+            <thead>
+                <tr>
+                    <th class=" feedback-gate gate-btn gate-arrow" style="width: 1%;">
+                        <a title="View" href="#" class="">
+                            <span class="trn" data-trn-key="Total Check Items" data-trn-value=""><i class="fas fa-angle-double-left"></i></span>
+                        </a>
+                    </th>
+                    <th class=" feedback-gate gate-btn gate-active" style="width: 15%;">
+                        <a title="View" href="#" class="">
+                            <span class="trn" data-trn-key="Total Check Items" data-trn-value="">Gate 1</span>
+                        </a>
+                    </th>
+                    <th class=" feedback-gate gate-btn " style="width: 15%;">
+                        <a title="View" href="#" class="">
+                            <span class="trn" data-trn-key="Total Check Items" data-trn-value="">Gate 2</span>
+                        </a>
+                    </th>
+                    <th class=" feedback-gate gate-btn " style="width: 15%;">
+                        <a title="View" href="#" class="">
+                            <span class="trn" data-trn-key="Total Check Items" data-trn-value="">Gate 3</span>
+                        </a>
+                    </th>
+                    <th class=" feedback-gate gate-btn " style="width: 15%;">
+                        <a title="View" href="#" class="">
+                            <span class="trn" data-trn-key="Total Check Items" data-trn-value="">Gate 4</span>
+                        </a>
+                    </th>
+                    <th class="feedback-gate gate-btn" style="width: 15%;">
+                        <a title="" href="#" data-original-title="View" class="">
+
+                            <span class="trn" data-trn-key="Ok" data-trn-value="">Gate 5
+                        </a>
+                    </th>
+                    <th class="feedback-gate gate-btn" style="width: 15%;">
+                        <a title="View" href="#" class="">
+
+                            <span class="trn" data-trn-key="Not Ok" data-trn-value="">Gate 6
+                        </a>
+                    </th>
+                    <th class="feedback-gate gate-btn" style="width: 15%;">
+                        <a title="View" href="#" class="">
+
+                            <span class="trn" data-trn-key="Skipped" data-trn-value="">Gate 7
+                        </a>
+                    </th>
+                    <th class=" feedback-gate gate-btn gate-arrow" style="width: 1%;">
+                        <a title="View" href="#" class="">
+                            <span class="trn" data-trn-key="Total Check Items" data-trn-value=""><i class="fas fa-angle-double-right"></i></span>
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>*@
+
+
+        <table style="" id="checklistitemstatusid" class="border-separate table table-bordered table-condensed table-hover  text-center feedback-tab-heading m-t-5px m-b-5">
+            <thead>
+                <tr>
+                    <th class="check-status feedback-check-item2 check-item-btn check-active" id="btntabtotal" onclick="CheckListitemsStatus('Total')">
+                        <a title="View" href="#" class="">
+                            <span><i class="fas fa-list-alt"></i></span><span class="trn" data-trn-key="Total Check Items" data-trn-value="">Total Check Items</span>(<span id="spTotalCount">0</span>)
+                        </a>
+                    </th>
+                    <th class="feedback-check-item2 check-item-btn" id="btntabOk" onclick="CheckListitemsStatus('Ok')">
+                        <a title="" href="#" data-original-title="View" class="">
+                            <span><i class="fas fa-check" style="color: green"></i></span>
+                            <span class="trn" data-trn-key="Ok" data-trn-value="">Ok</span>(<span id="spOkCount">0</span>)
+                        </a>
+                    </th>
+                    <th class="feedback-check-item2 check-item-btn" id="btntabNotOk" onclick="CheckListitemsStatus('NotOk')">
+                        <a title="View" href="#" class="">
+                            <span><i class="fas fa-times" style="color: red"></i></span>
+                            <span class="trn" data-trn-key="Not Ok" data-trn-value="">Not Ok</span>(<span id="spNotOkCount">0</span>)
+                        </a>
+                    </th>
+                    <th class="feedback-check-item2 check-item-btn" id="btntabSkipped" onclick="CheckListitemsStatus('Skipped')">
+                        <a title="View" href="#" class="">
+                            <span><i class="fas fa-share" style="color: gray"></i></span>
+                            <span class="trn" data-trn-key="Skipped" data-trn-value="">Skipped</span>(<span id="spSkippedCount">0</span>)
+                        </a>
+                    </th>
+                    <th class="feedback-check-item2 check-item-btn" id="btntabPending" onclick="CheckListitemsStatus('Pending')">
+                        <a title="View" href="#" class="">
+                            <span><i class="far fa-clock" style="color: #e68a00;"></i></span>
+                            <span class="trn" data-trn-key="Pending" data-trn-value="">Pending</span>(<span id="spPendingCount">0</span>)
+                        </a>
+                    </th>
+                </tr>
+            </thead>
+        </table>
+        <table style="" class="border-separate table table-bordered checkItems2 margin-bottom-0" id="maingateheader">
+            <thead>
+                <tr class="tblheadtext">
+                    <th style="text-align: center; width: 20%; ">
+                        <span class="trn" data-trn-key="Part Name" data-trn-value="">Part Name</span>
+                    </th>
+                    <th style="text-align: center; width: 20%">
+                        <span class="trn" data-trn-key="Check Items" data-trn-value="">Check Items</span>
+                    </th>
+                    <th style="text-align: center; width: 10%">
+                        <span class="trn" data-trn-key="Spec" data-trn-value="">Spec</span>
+                    </th>
+                    <th style="text-align: center; width: 20%">
+                        <span class="trn" data-trn-key="Standard" data-trn-value="">Standard</span>
+                    </th>
+
+
+                    <th style="text-align: center; width: 10%;">
+                        <span style="display:none" class="trn" data-trn-key="Actual/Comment" data-trn-value="">Actual/Comment</span>
+                    </th>
+
+                    <th style="width: 20%;">
+                    </th>
+                    <th style="width: 20%;">
+
+                    </th>
+                </tr>
+            </thead>
+        </table>
+
+
+        <table style="" class="border-separate  table table-bordered rework-header margin-bottom-0" id="Reworkgateheader">
+            <thead>
+                <tr class="tblheadtext">
+
+                    <th style="text-align: center; width: 20%; ">
+                        <span class="trn" data-trn-key="Q Gate" data-trn-value="">Q Gate</span>
+                    </th>
+
+                    <th style="text-align: center; width: 20%; ">
+                        <span class="trn" data-trn-key="Part Name" data-trn-value="">Part Name</span>
+                    </th>
+
+                    <th style="text-align: center; width: auto">
+                        <span class="trn" data-trn-key="Defect" data-trn-value="">Defect</span>
+                    </th>
+
+                    <th style="text-align: center; width: 20%;">
+                        <span class="trn" data-trn-key="Completed By" data-trn-value="">Completed By</span>
+                    </th>
+
+                    <th style="text-align: center; width: 20%;">
+                        <span class="trn" data-trn-key="Completed Date" data-trn-value="">Completed Date</span>
+                    </th>
+
+                    <th style="text-align: center; width: auto;display:none">
+                        <span id="" class="trn" data-trn-key="Defect" data-trn-value="">Defect</span>
+                    </th>
+                    <th style="width: 20%;">
+                    </th>
+
+                </tr>
+            </thead>
+        </table>
+
+
+
+        <table style="" class="border-separate  table table-bordered reexam-header margin-bottom-0" id="ReExaminationgateheader">
+            <thead>
+                <tr class="tblheadtext">
+
+                    <th style="text-align: center; width: 20%; ">
+                        <span class="trn" data-trn-key="Q Gate" data-trn-value="">Q Gate</span>
+                    </th>
+
+                    <th style="text-align: center; width: 20%; ">
+                        <span class="trn" data-trn-key="Part Name" data-trn-value="">Part Name</span>
+                    </th>
+
+                    <th style="text-align: center; width: auto">
+                        <span class="trn" data-trn-key="Defect" data-trn-value="">Defect</span>
+                    </th>
+
+                    <th style="text-align: center; width: 20%;">
+                        <span class="trn" data-trn-key="Completed By" data-trn-value="">Completed By</span>
+                    </th>
+
+                    <th style="text-align: center; width: 20%;">
+                        <span class="trn" data-trn-key="Completed Date" data-trn-value="">Completed Date</span>
+                    </th>
+
+                    <th style="text-align: center; width: auto;display:none">
+                        <span id="" class="trn" data-trn-key="Defect" data-trn-value="">Defect</span>
+                    </th>
+                    <th style="width: 20%;">
+                    </th>
+
+                </tr>
+            </thead>
+        </table>
+
+
+
+        <table style="" id="sealgateheader" class="table table-bordered checkItems3 margin-bottom-0">
+            <thead>
+                <tr class="tblheadtext">
+                    <th style="text-align: center; width: 10%; ">
+                        <span class="trn" data-trn-key="Serial No" data-trn-value="">Serial No</span>
+                    </th>
+                    <th style="text-align: center; width: 20%">
+                        <span class="trn" data-trn-key="Gate Name" data-trn-value="">Gate Name</span>
+                    </th>
+                    <th style="text-align: center; width: 15%">
+                        <span class="trn" data-trn-key="Completed By" data-trn-value="">Completed By</span>
+                    </th>
+                    <th style="text-align: center; width: 15%">
+                        <span class="trn" data-trn-key="Completed Date" data-trn-value="">Completed Date</span>
+                    </th>
+                    <th style="text-align: center; width: 40%;">
+                        <span class="trn" data-trn-key="Signature" data-trn-value="">Signature</span>
+                    </th>
+                    <th style="width: 20%;">
+                    </th>
+                </tr>
+            </thead>
+        </table>
+        <table class="table table-bordered" id="PaintingMastertable">
+            <thead>
+                @*<tr class="tblheadtext">
+
+                    <th style="text-align: center; width: 15%; ">
+                        <span>item1</span>
+                        <img src="../PaintingMasterImage/Dot.png" class="PaintImage" />
+                    </th>
+
+                    <th style="text-align: center; width: 15%; ">
+                        <span>item1</span>
+                        <img src="~/Images/traingle.png" class="PaintImage" />
+
+                    </th>
+
+                    <th style="text-align: center; width: 15%">
+                        <span>item1</span>
+                        <img src="~/Images/Rectangle.png" class="PaintImage" />
+                    </th>
+
+                    <th style="text-align: center; width: 15%;">
+                        <span>item1</span>
+                        <img src="~/Images/Yellowstar.png" class="PaintImage" />
+                    </th>
+
+                    <th style="text-align: center; width: 15%;">
+                        <span>item1</span>
+                        <img src="~/Images/BlueDimand.png" class="PaintImage" />
+                    </th>
+
+                    <th style="text-align: center; width: 15%;">
+                        <span>item1</span>
+                        <img src="~/Images/pinkstar.png" class="PaintImage" />
+                    </th>
+
+
+
+
+
+                </tr>
+                <tr class="tblheadtext">
+
+                    <th style="text-align: center; width: 15%; ">
+                        <span>item1</span>
+
+                        <img src="~/Images/Yellowsmallstar1.png" class="PaintImage" />
+                    </th>
+                    <th style="text-align: center; width: 15%; ">
+                        <span>item1</span>
+                        <img src="~/Images/Circle.png" class="PaintImage" />
+                    </th>
+                    <th style="text-align: center; width: 15%; ">
+                        <span>item1</span>
+                        <img src="~/Images/BrownSpad.png" class="PaintImage" />
+                    </th>
+                    <th style="text-align: center; width: 15%; ">
+                        <span>item1</span>
+                        <img src="~/Images/pinkstar.png" class="PaintImage" />
+                    </th>
+                    <th style="text-align: center; width: 15%; ">
+                        <span>item1</span>
+                        <img src="~/Images/BlackPlus.png" class="PaintImage" />
+                    </th>
+                    <th style="text-align: center; width: 15%; ">
+                        <span>item1</span>
+                        <img src="~/Images/BlackHeart.png" class="PaintImage" />
+                    </th>
+                </tr>*@
+            </thead>
+
+        </table>
+
+
+     
+
+
+
+
+        <div id="dvCheckList" class="AutomatedQFLPage-feedback ">
+            <div id="mCSB_1" class=" mCS-" style="max-height: none;" tabindex="0">
+                <div id="mCSB_1_container" class="mCSB_container" style="position: relative; top: 0px; left: 0px;" dir="ltr">
+                    <div>
+                        <div class="">
+                            <div id="Checkitemtables" style="display:none">
+
+
+
+
+
+
+
+
+
+                                <table class="table table-bordered table-condensed table-hover rework-body no-footer dataTable" id="tblQFLFeedbackRework" style="width: 100%; table-layout: auto;" role="grid" aria-describedby="tblQFLFeedback_info">
+                                    <thead style="display: none">
+                                        <tr class="tblheadtext">
+
+                                            <th style="text-align: center; width: auto; ">
+                                                <span class="trn" data-trn-key="Q Gate" data-trn-value="">Q Gate</span>
+                                            </th>
+                                            <th style="text-align: center; width: auto; ">
+                                                <span class="trn" data-trn-key="Part Name" data-trn-value="">Part Name</span>
+                                            </th>
+
+
+
+                                            <th style="text-align: center; width: auto;">
+                                                <span id="" class="trn" data-trn-key="Defect" data-trn-value="">Defect</span>
+                                            </th>
+
+
+                                            <th style="text-align: center; width: 20%;">
+                                                <span class="trn" data-trn-key="Completed By" data-trn-value="">Completed By</span>
+                                            </th>
+
+                                            <th style="text-align: center; width: 20%;">
+                                                <span class="trn" data-trn-key="Completed Date" data-trn-value="">Completed Date</span>
+                                            </th>
+
+                                            <th style="text-align: center;width: auto;">
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody class="feedback-content" id="BindingCheckListItemsRework">
+                                    </tbody>
+                                </table>
+
+
+
+
+
+                                <table class="table table-bordered table-condensed table-hover reexam-body no-footer dataTable" id="tblQFLFeedbackReExamination" style="width: 100%; table-layout: auto;" role="grid" aria-describedby="tblQFLFeedback_info">
+                                    <thead style="display: none">
+                                        <tr class="tblheadtext">
+
+                                            <th style="text-align: center; width: auto; ">
+                                                <span class="trn" data-trn-key="Q Gate" data-trn-value="">Q Gate</span>
+                                            </th>
+                                            <th style="text-align: center; width: auto; ">
+                                                <span class="trn" data-trn-key="Part Name" data-trn-value="">Part Name</span>
+                                            </th>
+
+
+
+                                            <th style="text-align: center; width: auto;">
+                                                <span id="" class="trn" data-trn-key="Defect" data-trn-value="">Defect</span>
+                                            </th>
+
+
+                                            <th style="text-align: center; width: 20%;">
+                                                <span class="trn" data-trn-key="Completed By" data-trn-value="">Completed By</span>
+                                            </th>
+
+                                            <th style="text-align: center; width: 20%;">
+                                                <span class="trn" data-trn-key="Completed Date" data-trn-value="">Completed Date</span>
+                                            </th>
+
+                                            <th style="text-align: center;width: auto;">
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody class="feedback-content" id="BindingCheckListItemsReExam">
+                                    </tbody>
+                                </table>
+
+
+
+                                <table class="table table-bordered table-condensed table-hover checkItems no-footer dataTable" id="tblQFLFeedback" style="width: 100%; table-layout: auto;" role="grid" aria-describedby="tblQFLFeedback_info">
+                                    <thead style="display: none">
+                                        <tr class="tblheadtext">
+                                            <th style="text-align: center; width: auto; ">
+                                                <span class="trn" data-trn-key="Part Name" data-trn-value="">Part Name</span>
+                                            </th>
+                                            <th style="text-align: center; width: auto;">
+                                                <span class="trn" data-trn-key="Check Items" data-trn-value="">Check Items</span>
+                                            </th>
+                                            <th style="text-align: center; width: auto;">
+                                                <span class="trn" data-trn-key="Spec" data-trn-value="">Spec</span>
+                                            </th>
+                                            <th style="text-align: center; width: auto;">
+                                                <span class="trn" data-trn-key="Standard" data-trn-value="">Standard</span>
+                                            </th>
+
+
+                                            <th style="text-align: center; width: auto;">
+                                                <span class="trn" data-trn-key="Actual/Comment" data-trn-value="">Actual/Comment</span>
+                                            </th>
+
+                                            <th style="text-align: center;width: auto;">
+                                            </th>
+                                            <th style="text-align: center;width: auto;">
+
+
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    @*BindingCheckListItems*@
+                                    <tbody class="feedback-content" id="BindingCheckListItems">
+                                    </tbody>
+
+
+
+                                </table>
+
+
+
+
+                                <table class="table table-bordered table-condensed table-hover checkItems4 no-footer dataTable" id="tblQFLFeedbackSeal" style="width: 100%; table-layout: auto;" role="grid" aria-describedby="tblQFLFeedback_info">
+                                    <thead style="display: none">
+                                        <tr class="tblheadtext">
+                                            <th style="text-align: center; width: 10%; ">
+                                                <span class="trn" data-trn-key="Serial No" data-trn-value="">Serial No</span>
+                                            </th>
+                                            <th style="text-align: center; width: 20%;">
+                                                <span class="trn" data-trn-key="Gate Name" data-trn-value="">Gate Name</span>
+                                            </th>
+                                            <th style="text-align: center; width: 15%;">
+                                                <span class="trn" data-trn-key="Completed By" data-trn-value="">Completed By</span>
+                                            </th>
+                                            <th style="text-align: center; width: 15%;">
+                                                <span class="trn" data-trn-key="Completed Date" data-trn-value="">Completed Date</span>
+                                            </th>
+                                            <th style="text-align: center; width: 40%;">
+                                                <span class="trn" data-trn-key="Signature" data-trn-value="">Signature</span>
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="feedback-content" id="BindingSealGate">
+                                        @*BindingSealGate*@
+                                        @*<tr class="trtblSchedule odd" role="row">
+                    <td> 1</td>
+                    <td>Seal Gate</td>
+                    <td>Periaswamy</td>
+                    <td>19-4-2020</td>
+                    <td><img src="~/Signature/18_04_2020_154110.png" width="200"></td>
+
+
+                </tr>*@
+
+
+                                    </tbody>
+                                    <tfoot>
+
+                                    </tfoot>
+                                </table>
+                                <div class="col-lg-11 text-right" style="margin-top: -40px;" id="VINCompletionDetails">
+                                    <span style="margin-right: 262px; color: red;" id="vinCompletetxt"> <b> </b></span>
+                                </div>
+
+                                <div class="text-right col-md-12 mt-2 margin-bottom-0 p-8" id="SealGateRemovefoot">
+                                    <button type="button" class="btn btn-success" id="Completedbtn" value="" style="margin-top: -90px; margin-right: 215px;"><span id="spnCompleted" class="trn">Completed</span></button>
+                                    <button type="button" class="btn btn-success" id="Completedbtn1" value="" style="margin-top: -90px; margin-right: 215px;"><span id="spnCompleted1" class="trn">Revert Completion</span></button>
+
+
+                                </div>
+
+
+                                <span id="appendCheckItemReworkImages"></span>
+
+                                <table style="" class="border-separate  table table-bordered Painting-rework-header margin-bottom-0" id="PaintingReworkgateheader">
+                                    <thead>
+                                        <tr class="tblheadtext">
+
+                                            <th style="text-align: center; width: 15%; ">
+                                                <span class="trn" data-trn-key="Q Gate" data-trn-value="">Q Gate</span>
+                                            </th>
+
+                                            <th style="text-align: center; width: 5%; ">
+                                                <span class="trn" data-trn-key="No" data-trn-value="">No</span>
+                                            </th>
+
+                                            <th style="text-align: center; width: 20%">
+                                                <span class="trn" data-trn-key="Defect" data-trn-value="">Defect</span>
+                                            </th>
+
+                                            <th style="text-align: center; width: 20%;">
+                                                <span class="trn" data-trn-key="Completed By" data-trn-value="">Completed By</span>
+                                            </th>
+
+                                            <th style="text-align: center; width: 20%;">
+                                                <span class="trn" data-trn-key="Completed Date" data-trn-value="">Completed Date</span>
+                                            </th>
+
+                                            <th style="text-align: center; width: auto;display:none">
+                                                <span id="" class="trn" data-trn-key="Defect" data-trn-value="">Defect</span>
+                                            </th>
+                                            <th style="width: 20%;">
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                </table>
+
+
+                                <table style="" class="border-separate  table table-bordered Painting-ReExam-header margin-bottom-0" id="PaintingReExamgateheader">
+                                    <thead>
+                                        <tr class="tblheadtext">
+
+                                            <th style="text-align: center; width: 15%; ">
+                                                <span class="trn" data-trn-key="Q Gate" data-trn-value="">Q Gate</span>
+                                            </th>
+
+                                            <th style="text-align: center; width: 5%; ">
+                                                <span class="trn" data-trn-key="No" data-trn-value="">No</span>
+                                            </th>
+
+                                            <th style="text-align: center; width: 20%">
+                                                <span class="trn" data-trn-key="Defect" data-trn-value="">Defect</span>
+                                            </th>
+
+                                            <th style="text-align: center; width: 20%;">
+                                                <span class="trn" data-trn-key="Completed By" data-trn-value="">Completed By</span>
+                                            </th>
+
+                                            <th style="text-align: center; width: 20%;">
+                                                <span class="trn" data-trn-key="Completed Date" data-trn-value="">Completed Date</span>
+                                            </th>
+
+                                            <th style="text-align: center; width: auto;display:none">
+                                                <span id="" class="trn" data-trn-key="Defect" data-trn-value="">Defect</span>
+                                            </th>
+                                            <th style="width: 20%;">
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+                                </table>
+
+
+
+                                <table class="table table-bordered table-condensed table-hover Painting-rework-body no-footer dataTable" id="tblQFLFeedbackReworkPainting" style="width: 100%; table-layout: auto;" role="grid" aria-describedby="tblQFLFeedback_info">
+                                    <thead style="display: none">
+                                        <tr class="tblheadtext">
+
+                                            <th style="text-align: center; width: 15%; ">
+                                                <span class="trn" data-trn-key="Q Gate" data-trn-value="">Q Gate</span>
+                                            </th>
+                                            <th style="text-align: center; width: 5%; ">
+                                                <span class="trn" data-trn-key="No" data-trn-value="">No</span>
+                                            </th>
+
+
+
+                                            <th style="text-align: center; width: 20%;">
+                                                <span id="" class="trn" data-trn-key="Defect" data-trn-value="">Defect</span>
+                                            </th>
+
+
+                                            <th style="text-align: center; width: 20%;">
+                                                <span class="trn" data-trn-key="Completed By" data-trn-value="">Completed By</span>
+                                            </th>
+
+                                            <th style="text-align: center; width: 20%;">
+                                                <span class="trn" data-trn-key="Completed Date" data-trn-value="">Completed Date</span>
+                                            </th>
+
+                                            <th style="text-align: center;width: auto;">
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody class="feedback-content" id="BindingCheckListItemsPaintingRework">
+                                    </tbody>
+
+                                </table>
+
+
+
+
+
+                                <table class="table table-bordered table-condensed table-hover Painting-ReExam-body no-footer dataTable" id="tblQFLFeedbackReExamPainting" style="width: 100%; table-layout: auto;" role="grid" aria-describedby="tblQFLFeedback_info">
+                                    <thead style="display: none">
+                                        <tr class="tblheadtext">
+
+                                            <th style="text-align: center; width: 15%; ">
+                                                <span class="trn" data-trn-key="Q Gate" data-trn-value="">Q Gate</span>
+                                            </th>
+                                            <th style="text-align: center; width: 5%; ">
+                                                <span class="trn" data-trn-key="No" data-trn-value="">No</span>
+                                            </th>
+
+
+
+                                            <th style="text-align: center; width: 20%;">
+                                                <span id="" class="trn" data-trn-key="Defect" data-trn-value="">Defect</span>
+                                            </th>
+
+
+                                            <th style="text-align: center; width: 20%;">
+                                                <span class="trn" data-trn-key="Completed By" data-trn-value="">Completed By</span>
+                                            </th>
+
+                                            <th style="text-align: center; width: 20%;">
+                                                <span class="trn" data-trn-key="Completed Date" data-trn-value="">Completed Date</span>
+                                            </th>
+
+                                            <th style="text-align: center;width: auto;">
+                                            </th>
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody class="feedback-content" id="BindingCheckListItemsPaintingReExam">
+                                    </tbody>
+
+                                </table>
+
+
+
+
+
+                            </div>
+                            @*<button id="takeScreenshot" onclick="UpdatescreenshotImage()">takeScreenshot</button>*@
+                            <img src="../PaintingMasterImage/EraseImage.png" onclick="ClickErase()" id="EraseImageid" class="Erase pointer" style="height:29px;" />
+                            @*<img src="../PaintingMasterImage/CopyEraseImage.png" style="display:block;"  id="EraseImageid1" class="Erase pointer" />*@
+
+
+                            <div id="screenshot">
+
+                                <span id="cloned"></span>
+                                @*<span id="cloned"><span class="clonenumber">1</span></span>*@
+                                <span id="appendCheckItemImage">
+
+                                    @* <img src="../PaintingMasterImage/bus.png" id="busimage" style="margin-left:120px" />*@
+
+                                </span>
+                            </div>
+                            <div class="row">
+                                @*<div class="col-sm-7 text-right" style="margin-top:12px;margin-left:310px" id="VINCompletionDetailsForPainting">
+                                    <span style="margin-right: 262px; color: red;" id="vinCompletetxtForPainting"> <b>  </b></span>
+                                </div>*@
+
+                                <div class="text-right col-sm-12" id="btnCompletedForPainting" style="margin-top:-16px;margin-left:-144px">
+
+                                    <button type="button" class="btn btn-success" id="CompletedbtnForPainting" value="" style="float: right;margin-top: 20px; margin-right: 55px;"><span id="spnCompletedForPainting" class="trn">Completed</span></button>
+                                    <button type="button" class="btn btn-success" id="Completedbtn1ForPainting" value="" style="float: right; margin-top: 20px; margin-right: 55px;"><span id="spnCompleted1ForPainting" class="trn">Revert Completion</span></button>
+                                    <span id="VINCompletionDetailsForPainting" style="">
+                                        <span style="float:right; color: red;margin-right: 10px;margin-top: 20px;" id="vinCompletetxtForPainting"> <b>  </b></span>
+                                    </span>
+
+                                </div>
+                            </div>
+
+                            <div id="output" style="display:none"></div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+</div>
+
+
+
+<div class="modal fade masterModal" data-backdrop="static" id="EmailNotifypopup" role="dialog">
+    <div class="modal-dialog ">
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title ">
+                    <span class="trn">Check Items</span>
+                </h4>
+            </div>
+
+
+            <div class="modal-body modal-body-scroll" style="min-height: 80px;">
+
+
+
+                <table style="" class="table table-bordered EmailNotify-header margin-bottom-0" id="EmailNotificationheader">
+                    <thead>
+                        <tr class="tblheadtext">
+
+                            <th style="text-align: center; width: 10%;">
+                                <span class="trn" data-trn-key="VIN" data-trn-value="">VIN</span>
+                            </th>
+
+                            <th style="text-align: center; width: 15%; ">
+                                <span class="trn" data-trn-key="Q Gate" data-trn-value="">Q Gate</span>
+                            </th>
+
+                            <th style="text-align: center; width: 20%; ">
+                                <span class="trn" data-trn-key="Part Name" data-trn-value="">Part Name</span>
+                            </th>
+
+                            <th style="text-align: center; width:  25%;">
+                                <span class="trn" data-trn-key="Defect" data-trn-value="">Defect</span>
+                            </th>
+
+
+                            <th style="text-align: center; width: 15%;">
+                                <span class="trn" data-trn-key="Completed By" data-trn-value="">Completed By</span>
+                            </th>
+
+                            <th style="text-align: center; width: 15%;">
+                                <span class="trn" data-trn-key="Completed Date" data-trn-value="">Completed Date</span>
+                            </th>
+
+
+
+
+                        </tr>
+                    </thead>
+                </table>
+
+
+                <table class="table table-bordered table-condensed table-hover EmailNotify-body no-footer dashboard-table dataTable" id="tblQFLFeedbackEmailNotify" style="width: 100%; table-layout: auto;" role="grid" aria-describedby="tblQFLFeedback_info">
+                    <thead style="display: none">
+                        <tr class="tblheadtext">
+
+
+                            <th style="text-align: center; width:  10%;">
+                                <span class="trn" data-trn-key="VIN" data-trn-value="">VIN</span>
+                            </th>
+
+
+                            <th style="text-align: center; width:  15%; ">
+                                <span class="trn" data-trn-key="Q Gate" data-trn-value="">Q Gate</span>
+                            </th>
+                            <th style="text-align: center; width:  20%; ">
+                                <span class="trn" data-trn-key="Part Name" data-trn-value="">Part Name</span>
+                            </th>
+
+
+
+                            <th style="text-align: center; width:  25%;">
+                                <span id="" class="trn" data-trn-key="Defect" data-trn-value="">Defect</span>
+                            </th>
+
+
+                            <th style="text-align: center; width: 15%;">
+                                <span class="trn" data-trn-key="Completed By" data-trn-value="">Completed By</span>
+                            </th>
+
+                            <th style="text-align: center; width: 15%;">
+                                <span class="trn" data-trn-key="Completed Date" data-trn-value="">Completed Date</span>
+                            </th>
+
+
+
+                        </tr>
+                    </thead>
+                    @*BindingCheckListItemsEmailNotify*@
+                    <tbody class="feedback-content" id="BindingCheckListItemsEmailNotify">
+                    </tbody>
+                </table>
+
+
+
+            </div>
+            <div class="modal-footer">
+
+                <button type="submit" id="btnOkSearch" class="btn btn-danger btn-xs" data-toggle="tooltip" data-dismiss="modal"
+                        data-placement="top" title="Cancel" style="width: 64px;">
+                    <span class="trn">Close</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade masterModal" data-backdrop="static" id="Confirmationpopup" role="dialog">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title ">
+                    <span class="trn">Confirmation</span>
+                </h4>
+            </div>
+            <div class="modal-body" style="min-height: 80px;">
+                <div class="col-lg-12" style="padding: 5px;">
+                    <div class="title">
+                        <h4 id="ConfirmationMessage"><span class="trn"></span></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnSearch" class="btn btn-success btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Submit" style="width: 64px;">
+                    <span class="trn">Submit</span>
+                </button>
+                <button type="submit" id="btnCancelSearch" class="btn btn-danger btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Cancel" style="width: 64px;">
+                    <span class="trn">Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade " data-backdrop="static" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id=""><span class="trn">Defect Place</span> </h4>
+            </div>
+
+            <div class="modal-body ">
+                @*<h2 class="text-center"><span class="trn">Defect Place</span></h2>*@
+                <div class="row feedback-modal-body">
+                    <div class="col-md-12" id="">
+                        <div class=" row mt-2 retain-row ">
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_1" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_1')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_2" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_2')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_3" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_3')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                        </div>
+
+                        <div class=" row mt-2 retain-row">
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_4" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_4')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_5" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_5')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_6" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_6')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                        </div>
+                        <div class=" row mt-2 retain-row ">
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_7" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_7')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_8" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_8')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_9" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_9')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                        </div>
+                        <div class=" row mt-2 retain-row">
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_10" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_10')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_11" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_11')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_12" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_12')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                        </div>
+                        <div class=" row mt-2 retain-row ">
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_13" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_13')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_14" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_14')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_15" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_15')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                        </div>
+                        <div class=" row mt-2 retain-row">
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_16" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_16')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_17" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_17')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_18" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_18')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                        </div>
+                        <div class=" row mt-2 retain-row ">
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_19" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_19')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_20" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_20')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_21" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_21')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                        </div>
+                        <div class=" row mt-2 retain-row">
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_22" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_22')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_23" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_23')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_24" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_24')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                        </div>
+
+                        <div class=" row mt-2 retain-row ">
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_25" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_25')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_26" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_26')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_27" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_27')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                        </div>
+                        <div class=" row mt-2 retain-row">
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_28" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_28')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_29" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_29')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_30" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_30')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                        </div>
+                        <div class=" row mt-2 retain-row ">
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_31" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_31')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_32" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_32')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_33" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_33')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                        </div>
+                        <div class=" row mt-2 retain-row">
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_34" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_34')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_35" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_35')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_36" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_36')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                        </div>
+                        <div class=" row mt-2 retain-row ">
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_37" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_37')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_38" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_38')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_39" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_39')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                        </div>
+                        <div class=" row mt-2 retain-row">
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_40" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_40')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_41" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_41')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_42" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_42')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                        </div>
+                        <div class=" row mt-2 retain-row">
+                            <span class="col-sm-4 mt-10"> <button type="button" id="QFLDefectPlace_43" value="" onclick="QFLDefectPlaceClick('QFLDefectPlace_43')" class="btn feedback-input-buttons btn-block">&nbsp;</button></span>
+                        </div>
+
+
+
+
+
+                        <div class=" retain-row"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                @*<button type="submit" id="btnSubmit" class="btn btn-success btn-xs" data-dismiss="modal">Save</button>*@
+                <h4> <span style="color:red;display:none;" id="DefectValidation"></span></h4>
+                <input type="submit" id="btnSubmit" class="btn btn-success btn-cancel btn-center" value="Submit" />
+                <input type="submit" id="btnSkipfordefectplace" class="btn btn-success btn-cancel btn-center trn" value="Skip" />
+                <button type="button" class="btn btn-danger" data-dismiss="modal"><span class="trn">Cancel</span></button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@*Site1 popup*@
+<div class="modal fade " data-backdrop="static" id="myModal2" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <button type="button" class="close" onclick="PermenentClosePopup()">&times;</button>
+                <h4 class="modal-title" id="PopupTitle1"><span class="trn"></span> </h4>
+            </div>
+
+            <div class="modal-body">
+                @*<div class="text-center">
+                        <span id="PopupTitle" style="font-size: 30px">
+                        </span>
+                        <input type="submit" value="Others" id="btnOtherSite" text="" class="btn btn-success pull-right mr-5" onclick=SiteOthers1() />
+                    </div>*@
+
+                <div class="row feedback-modal-body">
+                    <div class="col-md-12" id="QFLFeedBackSite1">
+                        @*<div class="row">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                            </div>
+                            <div class="row mt-10">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                            </div>
+                            <div class="row mt-10">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                @*<button type="submit" id="btnSubmit" class="btn btn-success btn-xs" data-dismiss="modal">Save</button>*@
+                <h4> <span style="color:red;display:none;" id="DefectSiteValidation"></span></h4>
+                @*<button type="button" class="btn btn-danger" onclick="backSitepopup()"><span class="trn">Back</span></button>*@
+                <input type="submit" value="Back" onclick="backSite1popup('Site1')" class="btn btn-danger trn" />
+
+                <input type="submit" style="display:none;" value="Done" id="btnSubmit1" class="btn btn-success btn-cancel btn-center trn" data-toggle="modal" />
+
+                <a href="#" onclick="ImageFileUpload()" type="file" class="btn btn-success" data-toggle="tooltip" title="Image upload" aria-hidden="true"><i class="fas fa-camera"></i></a>
+                @*                           <img src="~/Images/background.png" class="image-thumbnail" alt="Forest" style="width:55px; ">*@
+
+                <img id="" class="image-thumbnail uploaded_imageid" alt="img" style="width:55px; ">
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<input type="file" id="FileUpload1" style="display: none" />
+
+
+@*Site2 popup*@
+<div class="modal fade " data-backdrop="static" id="myModalSite2" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="" onclick="PermenentClosePopup()">&times;</button>
+                <h4 class="modal-title" id="PopupTitle2"><span class="trn"></span> </h4>
+            </div>
+
+            <div class="modal-body">
+                @*<div class="text-center">
+                        <span id="PopupTitle" style="font-size: 30px">
+                        </span>
+                        <input type="submit" value="Others" id="btnOtherSite" text="" class="btn btn-success pull-right mr-5" onclick=SiteOthers1() />
+                    </div>*@
+
+                <div class="row feedback-modal-body">
+                    <div class="col-md-12" id="QFLFeedBackSite2">
+                        @*<div class="row">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                            </div>
+                            <div class="row mt-10">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                            </div>
+                            <div class="row mt-10">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                @*<button type="submit" id="btnSubmit" class="btn btn-success btn-xs" data-dismiss="modal">Save</button>*@
+                <h4> <span style="color:red;display:none;" id="DefectSite2Validation"></span></h4>
+                @*<button type="button" class="btn btn-danger" onclick="backSitepopup()"><span class="trn">Back</span></button>*@
+                <input type="submit" value="Back" onclick="backSitepopup('Site2')" class="btn btn-danger trn" />
+
+                <input type="submit" value="Done" style="display:none;" id="btnSubmitSite2" class="btn btn-success btn-cancel btn-center trn" data-toggle="modal" />
+
+                <a href="#" onclick="ImageFileUpload()" type="file" class="btn btn-success" data-toggle="tooltip" title="Image upload" aria-hidden="true"><i class="fas fa-camera"></i></a>
+                @*                           <img src="~/Images/background.png" class="image-thumbnail" alt="Forest" style="width:55px; ">*@
+
+                <img id="" class="image-thumbnail uploaded_imageid" alt="Forest" style="width:55px; ">
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+@*Site3 popup*@
+<div class="modal fade " data-backdrop="static" id="myModalSite3" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="" onclick="PermenentClosePopup()">&times;</button>
+                <h4 class="modal-title" id="PopupTitle3"><span class="trn"></span> </h4>
+            </div>
+
+            <div class="modal-body">
+                @*<div class="text-center">
+                        <span id="PopupTitle" style="font-size: 30px">
+                        </span>
+                        <input type="submit" value="Others" id="btnOtherSite" text="" class="btn btn-success pull-right mr-5" onclick=SiteOthers1() />
+                    </div>*@
+
+                <div class="row feedback-modal-body">
+                    <div class="col-md-12" id="QFLFeedBackSite3">
+                        @*<div class="row">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                            </div>
+                            <div class="row mt-10">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                            </div>
+                            <div class="row mt-10">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                @*<button type="submit" id="btnSubmit" class="btn btn-success btn-xs" data-dismiss="modal">Save</button>*@
+                <h4> <span style="color:red;display:none;" id="DefectSite3Validation"></span></h4>
+                @*<button type="button" class="btn btn-danger" onclick="backSitepopup()"><span class="trn">Back</span></button>*@
+                <input type="submit" value="Back" onclick="backSitepopup('Site3')" class="btn btn-danger trn" />
+
+                <input type="submit" value="Done" style="display:none;" id="btnSubmitSite3" class="btn btn-success btn-cancel btn-center trn" data-toggle="modal" />
+
+
+                <a href="#" onclick="ImageFileUpload()" type="file" class="btn btn-success" data-toggle="tooltip" title="Image upload" aria-hidden="true"><i class="fas fa-camera"></i></a>
+                @*                           <img src="~/Images/background.png" class="image-thumbnail" alt="Forest" style="width:55px; ">*@
+
+                <img id="" class="image-thumbnail uploaded_imageid" alt="Forest" style="width:55px; ">
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+@*Site4 popup*@
+<div class="modal fade " data-backdrop="static" id="myModalSite4" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="" onclick="PermenentClosePopup()">&times;</button>
+                <h4 class="modal-title" id="PopupTitle4"><span class="trn"></span> </h4>
+            </div>
+
+            <div class="modal-body">
+                @*<div class="text-center">
+                        <span id="PopupTitle" style="font-size: 30px">
+                        </span>
+                        <input type="submit" value="Others" id="btnOtherSite" text="" class="btn btn-success pull-right mr-5" onclick=SiteOthers1() />
+                    </div>*@
+
+                <div class="row feedback-modal-body">
+                    <div class="col-md-12" id="QFLFeedBackSite4">
+                        @*<div class="row">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                            </div>
+                            <div class="row mt-10">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                            </div>
+                            <div class="row mt-10">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                @*<button type="submit" id="btnSubmit" class="btn btn-success btn-xs" data-dismiss="modal">Save</button>*@
+                <h4> <span style="color:red;display:none;" id="DefectSite4Validation"></span></h4>
+                @*<button type="button" class="btn btn-danger" onclick="backSitepopup()"><span class="trn">Back</span></button>*@
+                <input type="submit" value="Back" onclick="backSitepopup('Site4')" class="btn btn-danger trn" />
+
+                <input type="submit" value="Done" style="display:none;" id="btnSubmitSite4" class="btn btn-success btn-cancel btn-center trn" data-toggle="modal" />
+
+                <a href="#" onclick="ImageFileUpload()" type="file" class="btn btn-success" data-toggle="tooltip" title="Image upload" aria-hidden="true"><i class="fas fa-camera"></i></a>
+                @*                           <img src="~/Images/background.png" class="image-thumbnail" alt="Forest" style="width:55px; ">*@
+
+                <img id="" class="image-thumbnail uploaded_imageid" alt="Forest" style="width:55px; ">
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+@*Site5 popup*@
+<div class="modal fade " data-backdrop="static" id="myModalSite5" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="" onclick="PermenentClosePopup()">&times;</button>
+                <h4 class="modal-title" id="PopupTitle5"><span class="trn"></span> </h4>
+            </div>
+
+            <div class="modal-body">
+                @*<div class="text-center">
+                        <span id="PopupTitle" style="font-size: 30px">
+                        </span>
+                        <input type="submit" value="Others" id="btnOtherSite" text="" class="btn btn-success pull-right mr-5" onclick=SiteOthers1() />
+                    </div>*@
+
+                <div class="row feedback-modal-body">
+                    <div class="col-md-12" id="QFLFeedBackSite5">
+                        @*<div class="row">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                            </div>
+                            <div class="row mt-10">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                            </div>
+                            <div class="row mt-10">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                @*<button type="submit" id="btnSubmit" class="btn btn-success btn-xs" data-dismiss="modal">Save</button>*@
+                <h4> <span style="color:red;display:none;" id="DefectSite5Validation"></span></h4>
+                @*<button type="button" class="btn btn-danger" onclick="backSitepopup()"><span class="trn">Back</span></button>*@
+                <input type="submit" value="Back" onclick="backSitepopup('Site5')" class="btn btn-danger trn" />
+
+                <input type="submit" value="Done" style="display:none;" id="btnSubmitSite5" class="btn btn-success btn-cancel btn-center trn" data-toggle="modal" />
+
+                <a href="#" onclick="ImageFileUpload()" type="file" class="btn btn-success" data-toggle="tooltip" title="Image upload" aria-hidden="true"><i class="fas fa-camera"></i></a>
+                @*                           <img src="~/Images/background.png" class="image-thumbnail" alt="Forest" style="width:55px; ">*@
+
+                <img id="" class="image-thumbnail uploaded_imageid" alt="Forest" style="width:55px; ">
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+@*Damage popup*@
+<div class="modal fade " data-backdrop="static" id="myModalDamage" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="" onclick="PermenentClosePopup()">&times;</button>
+                <h4 class="modal-title" id="PopupTitleDamage"><span class="trn"></span> </h4>
+            </div>
+
+            <div class="modal-body">
+                @*<div class="text-center">
+                        <span id="PopupTitle" style="font-size: 30px">
+                        </span>
+                        <input type="submit" value="Others" id="btnOtherSite" text="" class="btn btn-success pull-right mr-5" onclick=SiteOthers1() />
+                    </div>*@
+
+                <div class="row feedback-modal-body">
+                    <div class="col-md-12" id="QFLFeedBackSiteDamage">
+                        @*<div class="row">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                            </div>
+                            <div class="row mt-10">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                            </div>
+                            <div class="row mt-10">
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                                <div class="col-sm-4">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons">Button1</button>
+                                </div>
+                            </div>*@
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                @*<button type="submit" id="btnSubmit" class="btn btn-success btn-xs" data-dismiss="modal">Save</button>*@
+                <h4> <span style="color:red;display:none;" id="DefectDamageValidation"></span></h4>
+                @*<button type="button" class="btn btn-danger" onclick="backSitepopup()"><span class="trn">Back</span></button>*@
+                <input type="submit" value="Back" onclick="backSitepopup('Damage')" class="btn btn-danger trn" />
+
+                <input type="submit" value="Done" style="display:none;" id="btnSubmitDamage" class="btn btn-success btn-cancel btn-center trn" data-toggle="modal" />
+
+                <a href="#" onclick="ImageFileUpload()" type="file" class="btn btn-success" data-toggle="tooltip" title="Image upload" aria-hidden="true"><i class="fas fa-camera"></i></a>
+                @*                           <img src="~/Images/background.png" class="image-thumbnail" alt="Forest" style="width:55px; ">*@
+
+                <img id="" class="image-thumbnail uploaded_imageid" alt="Forest" style="width:55px; ">
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="modal fade " data-backdrop="static" id="myModalDefectClass" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        @*<div class="modal-content feedback-modal-content ">*@
+
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id=""><span class="trn">Defect Class</span> </h4>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row feedback-modal-body">
+                    <div class="modal-body" id="QFLFeedBackDefectClass">
+
+                        @*<h2 class="text-center" id="popupDefectclass">Defect Class</h2>*@
+                        @*<div class="row" id="">
+
+                            <div class="col-sm-6">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons2">A</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons2">B</button>
+                                </div>
+                            </div>*@
+
+
+                        @*<div class="row mt-10">
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons2">C</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons2">D</button>
+                                </div>
+                            </div>*@
+
+
+
+                        @*<div class="row mt-10">
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons2">C</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons2">D</button>
+                                </div>
+                            </div>*@
+
+                    </div>
+                </div>
+            </div>
+            @*</div>*@
+            <div class="modal-footer text-center">
+                @*<button type="submit" id="btnSubmit" class="btn btn-success btn-xs" data-dismiss="modal">Save</button>*@
+                <h4> <span style="color:red;display:none;" id="DefectClassValidation"></span></h4>
+                <span id="defectclassbackbtnid">
+                    @*<button type="button" class="btn btn-danger trn"><span class="trn">Back</span></button>*@
+                </span>
+                <input type="submit" value="Done" id="btnSubmit2" class="btn btn-success btn-cancel btn-center trn" />
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade " data-backdrop="static" id="myModalDefectClassImage" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        @*<div class="modal-content feedback-modal-content ">*@
+
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <button type="button" onclick="btntopmyModalDefectClass()" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id=""><span class="trn">Defect Class</span> </h4>
+            </div>
+
+            <div class="modal-body">
+
+                <div class="row feedback-modal-body">
+                    <div class="modal-body" id="QFLFeedBackDefectClassImage">
+
+                        @*<h2 class="text-center" id="popupDefectclass">Defect Class</h2>*@
+                        @*<div class="row" id="">
+
+                            <div class="col-sm-6">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons2">A</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons2">B</button>
+                                </div>
+                            </div>*@
+
+
+                        @*<div class="row mt-10">
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons2">C</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons2">D</button>
+                                </div>
+                            </div>*@
+
+
+
+                        @*<div class="row mt-10">
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons2">C</button>
+                                </div>
+                                <div class="col-sm-6">
+                                    <button type="button" class="btn btn-block feedback-modal-buttons2">D</button>
+                                </div>
+                            </div>*@
+
+                    </div>
+                </div>
+            </div>
+            @*</div>*@
+        <div class="modal-footer">
+            @*<button type="submit" id="btnSubmit" class="btn btn-success btn-xs" data-dismiss="modal">Save</button>*@
+            <h4> <span style="color:red;display:none;" id="DefectClassValidationImage"></span></h4>
+            <span id="defectclassbackbtnidImage" class="pull-left">
+                @*<button type="button" class="btn btn-danger trn"><span class="trn">Back</span></button>*@
+            </span>
+
+            <input type="submit" value="Done" id="btnSubmitImage" onclick="btnSavePaintingImages()" class="btn pull-left btn-success btn-cancel btn-center trn" />
+            <a href="#" onclick="ImageFileUpload()" type="file" class="btn btn-success pull-left" data-toggle="tooltip" title="Image upload" aria-hidden="true"><i class="fas fa-camera"></i></a>
+            <img id="" class="image-thumbnail uploaded_imageid  pull-left" alt="Forest" style="width:55px; ">
+          
+            
+            
+            <input type="submit" value="X 2" id="" onclick="Onclickpointxbutton('X 2')" class="btn btn-light-green btn-cancel btn-center trn" />
+
+            <input type="submit" value="X 3" id="" onclick="Onclickpointxbutton('X 3')" class="btn btn-light-green btn-cancel btn-center trn" />
+
+            <input type="submit" value="X 4" id="" onclick="Onclickpointxbutton('X 4')" class="btn btn-light-green btn-cancel btn-center trn" />
+
+            <input type="submit" value="X 5" id="" onclick="Onclickpointxbutton('X 5')" class="btn btn-light-green btn-cancel btn-center trn" />
+
+
+        </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade masterModal" data-backdrop="static" id="ConfirmationpopupVin" role="dialog">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title ">
+                    <span class="trn">Confirmation</span>
+                </h4>
+            </div>
+            <div class="modal-body" style="min-height: 80px;">
+                <div class="col-lg-12" style="padding: 5px;">
+                    <div class="title">
+                        <h4 id="ConfirmationMessageVin"><span class="trn"></span></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnSearchVin" class="btn btn-success btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Submit" style="width: 64px;">
+                    <span class="trn">Submit</span>
+                </button>
+                <button type="submit" id="btnCancelSearchVin" class="btn btn-danger btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Cancel" style="width: 64px;">
+                    <span class="trn">Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade " data-backdrop="static" id="checkitem" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background-image: url('../../Images/header-bg.jpg')">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="AlertTitleUpdate"> <span class="trn"> Check Items</span> </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+
+
+                        <form id="bindingemptycheckitems">
+                            @*<div>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="optradio" checked>Option 1
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="optradio" checked>Option 2
+                                    </label>
+                                </div>
+                                <div>
+                                    <label class="radio-inline">
+                                        <input type="radio" name="optradio" checked>Option 3
+                                    </label>
+                                </div>*@
+
+                        </form>
+
+                        <textarea style="display:none" id="blankcheckitem" class="form-control"></textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input type="submit" value="Others" id="BlankOtherCheckItemsid" class="trn col-sm-1 btn btn-success btn-xs btn-cancel btn-center" onclick="OpenBlankOtherCheckItems();" />
+
+                @*<button type="submit" id="btnSubmit" class="btn btn-success btn-xs" data-dismiss="modal">Save</button>*@
+                <input type="submit" value="Submit" id="btnSubmitCheckItem" class="trn btn btn-success btn-xs btn-cancel btn-center" onclick="SaveBlankChecklistItem();" />
+                <button type="button" class="btn btn-xs btn-danger" data-dismiss="modal"><span class="trn">Cancel</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" data-backdrop="static" id="comments" role="dialog">
+    <div class="modal-dialog ">
+        <!-- Modal content-->
+        <div class="modal-content modal-lg">
+            <div class="modal-header" style="background-image: url('../../Images/header-bg.jpg')">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="AlertTitleUpdate"> <span class="trn">Actual/Comment</span> </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row mt-10">
+                    <div class="col-md-4">
+                        <label><span class="trn">Actual Value/Spec</span></label>
+                    </div>
+                    <div class="col-md-8 ">
+                        <input type="text" id="actualvalue" class="form-control input-sm validate[required]" />
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-4">
+                        <label><span class="trn">Responsible</span></label>
+                    </div>
+                    <div class="col-md-8 ">
+                        <input type="text" id="responsible" class="form-control input-sm validate[required]" />
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-4">
+                        <label><span class="trn">Damage Code</span></label>
+                    </div>
+                    <div class="col-md-8 ">
+                        <input type="text" id="damagecode" class="form-control input-sm validate[required]" />
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-4">
+                        <label><span class="trn">Comments</span></label>
+                    </div>
+                    <div class="col-md-8 ">
+                        <textarea class="form-control" id="textareacomments"></textarea>
+                    </div>
+                </div>
+                <div class="row mt-10">
+                    <div class="col-md-4">
+                        <label><span class="trn">Choose File</span></label>
+                    </div>
+                    <div class="col-md-8 ">
+                        <input type="file" id="files1" name="files[]" style="display: none;" multiple />
+                        <button id="bfile" type="button" class="btn btn-success btn-xs">
+                            <span class="trn" data-trn-key="Browse" data-trn-value="">Browse</span>
+                        </button>
+                        <div id="FileName"></div>
+
+
+
+                    </div>
+                </div>
+                <div class="row mt-10" id="AttachmentUpload">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                @*<button type="submit" id="btnSubmit" class="btn btn-success btn-xs" data-dismiss="modal">Save</button>*@
+                <input type="submit" id="btnSubmitActual" value="Submit" class="btn btn-success btn-xs btn-cancel btn-center" onclick="ActualComment()" />
+                <button type="button" id="btncancel" class="btn btn-xs btn-danger" data-dismiss="modal"><span class="trn">Cancel</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal masterModal" id="DeleteConfirmationpopup" role="dialog" style=" z-index: 10000;">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title ">
+                    <span class="trn">Confirmation</span>
+                </h4>
+            </div>
+            <div class="modal-body" style="min-height: 80px;">
+                <div class="col-lg-12" style="padding: 5px;">
+                    <div class="title">
+                        <h4 id="DeleteConfirmationMessage"><span class="trn"></span></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnSearchDelete" class="btn btn-success btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Submit" style="width: 64px;">
+                    <span class="trn">Submit</span>
+                </button>
+                <button type="submit" id="btndeleteconfirmation" class="btn btn-danger btn-xs" data-dismiss="modal" data-toggle="tooltip"
+                        data-placement="top" title="Cancel" style="width: 64px;">
+                    <span class="trn">Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade " data-backdrop="static" id="completed" role="dialog" style="display:none">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content modal-lg">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="AlertTitleUpdate"><span class="trn"></span> </h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12 ">
+                        @*<textarea class="form-control" rows="10"></textarea>*@
+
+                        <div class="signaturenew" id="Buttons">
+
+
+                            <h3>Enter Signature</h3>
+
+                            <span id="Signaturevalidation"></span>
+                            <br />
+                            <div id="canvas">
+                                <canvas id="newSignature"></canvas>
+                                @*<canvas id='blank' style='display:none'></canvas>*@
+
+                            </div>
+                            <script>signatureCapture();</script>
+
+                            @*<button type="button" id="save" class="btn btn-lg btn-danger" onclick="signatureSave()">Save signature</button>
+                                <button type="button" id="clear" class="btn btn-lg btn-primary" onclick="signatureClear()" >Clear signature</button>*@
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                @*<button type="submit" id="btnSubmit" class="btn btn-success btn-xs" data-dismiss="modal">Save</button>*@
+                <input type="submit" id="" onclick="signatureSave()" value="Submit" class="btn btn-success btn-xs btn-cancel btn-center" />
+
+                <button type="button" onclick="signatureClear()" class="btn btn-xs btn-danger">Clear Signature</button>
+                <button type="button" class="btn btn-xs btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade " data-backdrop="static" id="OtherDefectPopUp" role="dialog" style="display:none">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="AlertTitleUpdate"><span class="trn">Others</span> </h4>
+            </div>
+            <div class="modal-body">
+
+
+                <div class="material-switch pull-left" style="display:none" id="LanguageChanger">
+
+
+                    <span class="fontbold"> Input Language:  </span>
+                    <input data-role="flipswitch" id="LanguageChanger1" name="LanguageChanger001" type="checkbox" onclick="btnlanguageselection()" />
+                    <label for="LanguageChanger1" class="label-primary ml-5"></label>
+                    <span class="ml-5" id="LanguageModetxt"></span>
+
+                </div>
+
+                <div class="material-switch pull-right mr-5" id="someSwitchOptionPrimarys">
+                    <span class="mr-5 trn" id="Modetxt"></span>
+                    
+
+                    <input data-role="flipswitch" id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox" onclick="btnOtherSlide()" />
+                    <label for="someSwitchOptionPrimary" class="label-primary"></label>
+                </div>
+                <div class="text-center" style="margin-top: -10px;">
+                    <span id="OtherDefectPopUpTitle" style="font-size: 30px">
+                    </span>
+                </div>
+                <textarea class="form-control" rows="10" id="txtOthervalue" style="display:none"></textarea>
+
+
+                <div class="row" id="SignatureHide">
+                    <div class="col-md-12 ">
+
+
+
+                        <div class="row ButtonsClass" id="">
+
+                            <span id="Signaturevalidation"></span>
+                            <br />
+                            <div id="canvas" style="margin-left:-63px">
+                                <canvas class="SignatureDisplay" id="newSignature1"></canvas>
+                                @*<canvas id='blank' style='display:none'></canvas>*@
+
+                            </div>
+                            <script>signatureCapture1();</script>
+
+                            @*<button type="button" id="save" class="btn btn-lg btn-danger" onclick="signatureSave()">Save signature</button>
+                                <button type="button" id="clear" class="btn btn-lg btn-primary" onclick="signatureClear()" >Clear signature</button>*@
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+                <h4> <span style="color:red;display:none;" id="OtherDefectValidation"></span></h4>
+
+
+                <span id="OtherSiteDoneid">
+
+                </span>
+                <a href="#" onclick="ImageFileUpload()" type="file" class="btn btn-success Paintuploadimage" data-toggle="tooltip" title="Image upload" aria-hidden="true"><i class="fas fa-camera"></i></a>
+                <img id="" class="image-thumbnail uploaded_imageid" alt="Forest" style="width:55px; ">
+                <button style="display:none;" type="button" id="btnOtherClearid" class="btn btn-danger" onclick="btnOtherClear()"><span class="trn">Clear</span></button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade " data-backdrop="static" id="OtherDefectPopUpDamage" role="dialog" style="display:none">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id=""><span class="trn">Others</span> </h4>
+            </div>
+            <div class="modal-body">
+
+                <div class="material-switch pull-left" style="display:none" id="LanguageChangerDamage">
+
+
+                    <span class="fontbold"> Input Language:  </span>
+                    <input data-role="flipswitch" id="LanguageChanger1Damage" name="LanguageChanger001Damage" type="checkbox" onclick="btnlanguageselectionDamage()" />
+                    <label for="LanguageChanger1Damage" class="label-primary ml-5"></label>
+                    <span class="ml-5" id="LanguageModetxtDamage"></span>
+
+                </div>
+
+
+                <div class="material-switch pull-right mr-5" id="someSwitchOptionPrimarysDamage">
+                    <span class="mr-5 trn" id="ModetxtDamage"></span>
+
+
+                    <input data-role="flipswitch" id="someSwitchOptionPrimaryDamage" name="someSwitchOption001Damage" type="checkbox" onclick="btnOtherSlideDamage()" />
+                    <label for="someSwitchOptionPrimaryDamage" class="label-primary"></label>
+                </div>
+                <div class="text-center" style="margin-top: -10px;">
+                    <span id="OtherDefectPopUpTitleDamage" style="font-size: 30px; margin-left: 35px;">
+                    </span>
+                </div>
+                <textarea class="form-control" rows="10" id="txtOthervalueDamage" style="display:none"></textarea>
+
+
+                <div class="row" id="SignatureHideDamage">
+                    <div class="col-md-12 ">
+
+
+
+                        <div class="row ButtonsClass" id="">
+
+                            <span id="SignaturevalidationDamage"></span>
+                            <br />
+                            <div id="canvas" style="margin-left:-63px">
+                                <canvas id="newSignature1Damage" class="SignatureDisplay"></canvas>
+
+
+                            </div>
+                            <script>signatureCapture1Damage();</script>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer text-center">
+
+
+
+                @*<button type="submit" id="btnSubmit" class="btn btn-success btn-xs"  data-dismiss="modal"data-dismiss="modal">Save</button>*@
+                <h4> <span style="color:red;display:none;" id="OtherDefectValidationDamage"></span></h4>
+
+                <input type="submit" id="" onclick="btnOtherCancelSiteDamage()" class="btn btn-danger trn" value="Back" />
+                <input type="submit" id="btnSubmitOtherSite" onclick="btnOtherSiteSaveDamage()" class="btn btn-success btn-cancel btn-center trn" value="Done" />
+                @*<button  type="button" id="btnSubmitOtherSite" class="btn btn-success btn-cancel btn-center" onclick="btnOtherSiteSave()"><span class="trn">Done</span></button>*@
+
+                <button style="display:none;" type="button" id="btnOtherClearidDamage" class="btn btn-danger" onclick="btnOtherClearDamage()"><span class="trn">Clear</span></button>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<div class="modal fade " data-backdrop="static" id="OtherDefectPopUp" role="dialog" style="display:none">
+        <div class="modal-dialog">
+
+             Modal content
+            <div class="modal-content feedback-modal-content">
+
+
+                <div class="modal-body">
+
+                    <div class="material-switch pull-right mr-5">
+                        <span class="mr-5">Hand Writing</span>
+                        <input id="someSwitchOptionPrimary" name="someSwitchOption001" type="checkbox" />
+                        <label for="someSwitchOptionPrimary" class="label-primary"></label>
+                    </div>
+                    <div class="text-center" style="margin-top: -10px;">
+                        <span id="OtherDefectPopUpTitle" style="font-size: 30px">
+                        </span>
+                    </div>
+                    <textarea class="form-control" rows="10" id="txtOthervalue" style="display:none"></textarea>
+
+
+
+                    <div class="row" id="Buttons">
+
+
+                        <h3>Enter Signature</h3>
+
+                        <span id="Signaturevalidation"></span>
+                        <br />
+
+                        <canvas id="newSignature1"></canvas>
+                        <canvas id='blank' style='display:none'></canvas>
+
+
+                        <script>signatureCapture1();</script>
+
+                        <button type="button" id="save" class="btn btn-lg btn-danger" onclick="signatureSave()">Save signature</button>
+                            <button type="button" id="clear" class="btn btn-lg btn-primary" onclick="signatureClear()" >Clear signature</button>
+                    </div>
+
+                </div>
+                <div class="modal-footer text-center">
+                    <button type="submit" id="btnSubmit" class="btn btn-success btn-xs"  data-dismiss="modal"data-dismiss="modal">Save</button>
+                    <h4> <span style="color:red;display:none;" id="OtherDefectValidation"></span></h4>
+
+                    <input type="submit" id="btnSubmitOtherSite" onclick="btnOtherSiteSave()" class="btn btn-success btn-cancel btn-center" value="Submit" />
+                    <button type="button" class="btn btn-danger" onclick="btnOtherCancelSite()"><span class="trn">Cancel</span></button>
+                </div>
+            </div>
+
+        </div>
+    </div>*@
+
+
+
+<div class="modal fade masterModal" data-backdrop="static" id="SinganatureConfirmationpopup" role="dialog">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <h4 class="modal-title ">
+                    <span class="trn">Confirmation</span>
+                </h4>
+            </div>
+            <div class="modal-bodySig" id="Modelbody">
+                <div class="col-lg-12" style="padding: 5px;">
+                    <div class="title">
+
+                        <h4 id="SinganatureConfirmationMsg"><span class="trn"> </span></h4>
+                        <div id="ExistingSignature">
+                            @*  <img id="" src="~/Signature/Signature_27_05_2020_135202.png" width="300">*@
+
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnSinganature" class="btn btn-success btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Submit" style="width: 64px;">
+                    <span class="trn">Ok</span>
+                </button>
+                <button type="submit" id="" class="btn btn-danger btn-xs" data-dismiss="modal" data-toggle="tooltip"
+                        data-placement="top" title="Cancel" style="width: 64px;">
+                    <span class="trn">Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade masterModal" data-backdrop="static" id="SinganatureConfirmationpopup1" role="dialog">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title ">
+                    <span class="trn">Confirmation</span>
+                </h4>
+            </div>
+            <div class="modal-body" style="min-height: 85px;">
+                <div class="col-lg-12" style="padding: 5px;">
+                    <div class="title">
+
+                        <h4 id="SinganatureConfirmationMsg1"><span class="trn"> </span></h4>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnSinganature1" class="btn btn-success btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Submit" style="width: 64px;">
+                    <span class="trn">Ok</span>
+                </button>
+                <button type="submit" id="" class="btn btn-danger btn-xs" data-dismiss="modal" data-toggle="tooltip"
+                        data-placement="top" title="Cancel" style="width: 64px;">
+                    <span class="trn">Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="modal fade masterModal" data-backdrop="static" id="CheckSignatureConfirmationpopup" role="dialog">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title ">
+                    <span class="trn">Confirmation</span>
+                </h4>
+            </div>
+            <div class="modal-body" style="min-height: 80px;">
+                <div class="col-lg-12" style="padding: 5px;">
+                    <div class="title">
+                        <h4 id="CheckSignatureConfirmationMsg"><span class="trn"> </span></h4>
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnCheckSinganatureYes" onclick="CheckSinganatureYes()" class="btn btn-success btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Submit" style="width: 64px;">
+                    <span class="trn">Yes</span>
+                </button>
+                <button type="submit" id="btnCheckSinganatureRewrite" onclick="CheckSinganatureRewrite()" class="btn btn-danger btn-xs" data-dismiss="modal" data-toggle="tooltip"
+                        data-placement="top" title="Cancel" style="width: 64px;">
+                    <span class="trn">Rewrite</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" data-backdrop="static" id="ReworkAndReExamCommunicate" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align:center" id="ReworkAndReExamCommunicateTitle"><span class="trn"></span> </h4>
+            </div>
+
+            <div class="modal-body">
+                @* BindingCommunicationDetails*@
+                <div class="Communication-content" id="BindingCommunicationDetails">
+
+                    @*                     <div class="row">
+                                <div class="col-md-4">
+                                    <h5>Rework</h5>
+                                     <h5>Yoghuchi.kidujokfds</h5>
+                                     <h5>dsfdsfsdfdsf</h5>
+
+                                </div>
+                                 <div class="col-md-8">
+                                     <div class="talk-bubble triangle left-top">
+                          <div class="talktext">
+                            <p>Left flush at the top.</p>
+                          </div>
+                        </div>
+                                </div>
+                            </div>*@
+
+
+
+
+                    @*                            <div class="row">
+                                <div class="col-md-8">
+                                       <div class="talk-bubble triangle right-top">
+                          <div class="talktext">
+                            <p>Right flush at the top.</p>
+                          </div>
+                        </div>
+                                </div>
+                                 <div class="col-md-4">
+                                <h5>reexamination</h5>
+                                     <h5>Yoghuchi.kidujokfds</h5>
+                                     <h5>dsfdsfsdfdsf</h5>
+                                </div>
+                            </div>*@
+
+
+                    @*                         <div class="row">
+                                <div class="col-md-4">
+                                    <h5>Rework</h5>
+                                     <h5>Yoghuchi.kidujokfds</h5>
+                                     <h5>dsfdsfsdfdsf</h5>
+
+                                </div>
+                                 <div class="col-md-8">
+                                     <div class="talk-bubble triangle left-top">
+                          <div class="talktext">
+                            <p>Left flush at the top.</p>
+                          </div>
+                        </div>
+                                </div>
+                            </div>*@
+
+
+                    @*                            <div class="row">
+                                <div class="col-md-8">
+                                       <div class="talk-bubble triangle right-top">
+                          <div class="talktext">
+                            <p>Right flush at the top.</p>
+                          </div>
+                        </div>
+                                </div>
+                                 <div class="col-md-4">
+                                <h5>reexamination</h5>
+                                     <h5>Yoghuchi.kidujokfds</h5>
+                                     <h5>dsfdsfsdfdsf</h5>
+                                </div>
+                            </div>*@
+
+                </div>
+                <textarea class="form-control mt-5px" rows="5" id="txtCommunication" style=""></textarea>
+
+
+            </div>
+            <div class="modal-footer text-center">
+                <h4> <span style="color:red;display:none;" id="CommunicateValidation">Please enter value</span></h4>
+                <input type="submit" value="Back" id="btnCommunicationclose" onclick="btnCloseComunication()" class="btn btn-danger trn" />
+                <input type="submit" value="Done" id="btnCommunicationClick" onclick="btnSubmittCommunication()" class="btn btn-success btn-cancel btn-center trn" data-toggle="modal" />
+                <a href="#" onclick="ImageFileUpload()" type="file" class="btn btn-success" data-toggle="tooltip" title="Image upload" aria-hidden="true"><i class="fas fa-camera"></i></a>
+
+                <img id="" class="image-thumbnail uploaded_imageid" alt="img" style="width:55px; ">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+<div class="modal fade masterModal" id="NotOkUploadImage" role="dialog" style="z-index: 100000;">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title ">
+                    <span class="trn">Image</span>
+                </h4>
+            </div>
+            <div class="modal-body" style="min-height: 80px;" id="notokImageappend">
+                @*<img src="~/Images/background.png" class="image-thumbnail" alt="Forest" style="width:100%; ">*@
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="submit" id="btnNotOKcancelImage" class="btn btn-danger btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Cancel" style="width: 64px;" data-dismiss="modal">
+                    <span class="trn">Close</span>
+                </button>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade masterModal" data-backdrop="static" id="DeleteImageConfirmationpopup" role="dialog">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title ">
+                    <span class="trn">Confirmation</span>
+                </h4>
+            </div>
+            <div class="modal-body" style="min-height: 80px;">
+                <div class="col-lg-12" style="padding: 5px;">
+                    <div class="title">
+                        <h4 id="DeleteImageConfirmationMessage"><span class="trn"></span></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnDeleteImage" onclick="btnDeleteImageclick()" class="btn btn-success btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Submit" style="width: 64px;">
+                    <span class="trn">Submit</span>
+                </button>
+                <button type="submit" id="btnDeleteImageCancel" onclick="btnDeleteImageclickCancel()" class="btn btn-danger btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Cancel" style="width: 64px;">
+                    <span class="trn">Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade" data-backdrop="static" id="ReworkAndReExamCommunicateForPainting" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" style="text-align:center" id="ReworkAndReExamCommunicateTitleForPainting"><span class="trn"></span> </h4>
+            </div>
+
+            <div class="modal-body">
+                @* BindingCommunicationDetails*@
+                <div class="Communication-content" id="BindingCommunicationDetailsForPainting">
+
+                    @*                     <div class="row">
+                                <div class="col-md-4">
+                                    <h5>Rework</h5>
+                                     <h5>Yoghuchi.kidujokfds</h5>
+                                     <h5>dsfdsfsdfdsf</h5>
+
+                                </div>
+                                 <div class="col-md-8">
+                                     <div class="talk-bubble triangle left-top">
+                          <div class="talktext">
+                            <p>Left flush at the top.</p>
+                          </div>
+                        </div>
+                                </div>
+                            </div>*@
+
+
+
+
+                    @*                            <div class="row">
+                                <div class="col-md-8">
+                                       <div class="talk-bubble triangle right-top">
+                          <div class="talktext">
+                            <p>Right flush at the top.</p>
+                          </div>
+                        </div>
+                                </div>
+                                 <div class="col-md-4">
+                                <h5>reexamination</h5>
+                                     <h5>Yoghuchi.kidujokfds</h5>
+                                     <h5>dsfdsfsdfdsf</h5>
+                                </div>
+                            </div>*@
+
+
+                    @*                         <div class="row">
+                                <div class="col-md-4">
+                                    <h5>Rework</h5>
+                                     <h5>Yoghuchi.kidujokfds</h5>
+                                     <h5>dsfdsfsdfdsf</h5>
+
+                                </div>
+                                 <div class="col-md-8">
+                                     <div class="talk-bubble triangle left-top">
+                          <div class="talktext">
+                            <p>Left flush at the top.</p>
+                          </div>
+                        </div>
+                                </div>
+                            </div>*@
+
+
+                    @*                            <div class="row">
+                                <div class="col-md-8">
+                                       <div class="talk-bubble triangle right-top">
+                          <div class="talktext">
+                            <p>Right flush at the top.</p>
+                          </div>
+                        </div>
+                                </div>
+                                 <div class="col-md-4">
+                                <h5>reexamination</h5>
+                                     <h5>Yoghuchi.kidujokfds</h5>
+                                     <h5>dsfdsfsdfdsf</h5>
+                                </div>
+                            </div>*@
+
+                </div>
+                <textarea class="form-control mt-5px" rows="5" id="txtCommunicationForPainting" style=""></textarea>
+
+
+            </div>
+            <div class="modal-footer text-center">
+                <h4> <span style="color:red;display:none;" id="CommunicateValidationForPainting">Please enter value</span></h4>
+                <input type="submit" value="Back" id="btnCommunicationcloseForPainting" onclick="btnCloseComunicationForPainting()" class="btn btn-danger trn" />
+                <input type="submit" value="Done" id="btnCommunicationClickForPainting" onclick="btnSubmittCommunicationForPainting()" class="btn btn-success btn-cancel btn-center trn" data-toggle="modal" />
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<script>
+    $(document).ready(function () {
+        $('.feedback-modal-buttons').click(function () {
+            $(this).toggleClass('feedback-modal-buttons-click');
+        });
+
+        $('.feedback-modal-buttons2').click(function () {
+            $(this).toggleClass('feedback-modal-buttons-click');
+        });
+        $('.feedback-input-buttons').click(function () {
+            $(this).toggleClass('feedback-input-buttons-click');
+        })
+    });
+</script>
+<script>
+    //$(document).ready(function(){
+
+    //    $('.feedback-tab-heading thead tr .feedback-check-item2').click(function () {
+    //        alert(clicked);
+    //    $(this).find(".feedback-check-item2").css("background","red");
+    //});
+    //});
+
+    $(document).on('click', '.check-item-btn', function () {
+        $('.feedback-check-item2').removeClass('check-active');
+        var parents = $(this).addClass('check-active')
+
+
+    });
+
+    $(document).on('click', '.gate-btn', function () {
+        $('.feedback-gate').removeClass('gate-active');
+        var parents = $(this).addClass('gate-active')
+
+
+
+    });
+
+
+
+    $('#feedback-details').css('visibility', 'hidden');
+
+
+</script>
+
+
+@*<script src="~/Scripts/slick-scripts.js"></script>*@
+<script src="~/Scripts/slick.js"></script>
+
+
+@*<div class="container">
+         The file upload form used as target for the file upload widget
+        <form id="fileupload" action="#" method="POST" enctype="multipart/form-data">
+
+            <div class="row files" id="files1">
+                <h2>Files 1</h2>
+                <span class="btn btn-default btn-file">
+                    Browse  <input type="file" name="files1" multiple />
+                </span>
+                <br />
+                <ul class="fileList"></ul>
+            </div>
+
+            <div class="row files" id="files2">
+                <h2>Files 2</h2>
+                <span class="btn btn-default btn-file">
+                    Browse  <input type="file" name="files2" multiple />
+                </span>
+                <br />
+                <ul class="fileList"></ul>
+            </div>
+
+            <div class="row files" id="files3">
+                <h2>Files 2</h2>
+                <span class="btn btn-default btn-file">
+                    Browse  <input type="file" name="files3" multiple />
+                </span>
+                <br />
+                <ul class="fileList"></ul>
+            </div>
+
+            <br />
+            <br />
+
+            <div class="row">
+                <button type="x" id="uploadBtn" class="btn primary start">Start upload</button>
+            </div>
+
+            <br>
+            <div class="row">
+                <div class="span16">
+
+                    <table class="zebra-striped"><tbody class="files"></tbody></table>
+                </div>
+            </div>
+        </form>
+    </div>*@
+
+
+
+@*<script>
+        $(document).ready(function () {
+            $('#tblQFLFeedback').DataTable();
+        });
+    </script>*@

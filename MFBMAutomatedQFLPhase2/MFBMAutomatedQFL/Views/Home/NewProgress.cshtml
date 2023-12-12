@@ -1,0 +1,114 @@
+﻿@model MFBMAutomatedQFL.Models.QGateMaster
+@{
+    ViewBag.Title = "New Progress";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/Sortable.js"></script>
+<script src="~/Plugins/NewProgress.js"></script>
+<style>
+    .error {
+        border: 1px solid red !important;
+    }
+</style>
+
+<div class="Table_contentpanel">
+    <div class="Audittrackertitlebg ">
+        <strong id="Strong1"><span class="trn" data-trn-key="New Progress" data-trn-value="">New Progress</span> </strong>
+    </div>
+    <hr style="margin-top: 1px; margin-bottom: 1px;">
+    <div class="AutomatedQFLPage-qgmaster">
+
+        <div class="row p-8" id="dvNewProgressBinding">
+
+        </div>
+    </div>
+</div>
+
+
+<form action="#" id="AddNewProgressForm">
+
+    <div class="modal fade masterModal" id="addListNewProgressPopup" role="dialog">
+        <div class="modal-dialog modal-xs" style="width: 600px;">
+            <div class="modal-content">
+
+                <div class="modal-header" style="background-image: url('../Images/header-bg.jpg')">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title" id="Dynamictitle"><span class="trn"></span></h4>
+                </div>
+
+                <div class="modal-body">
+                    <div class="col-lg-12">
+                        <div class="title">
+                            <div class="col-md-12" id="">
+                                <label for="" class="control-label col-sm-3" style="padding-top: 5px;">
+                                    <span class="trn">New Progress</span>
+                                </label>
+                                <div class="dmaster col-sm-9" style="padding: 0;">
+                                    <input type="text" class="form-control input-sm validate[required]" id="txtNewProgressDynamic" />
+                                </div>
+
+
+
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer" style="margin-top: 48px; text-align: center;">
+                    <button type="submit" id="btnSubmit" class="btn btn-success btn-xs">
+                        <span class="trn">Save</span>
+                    </button>
+                    <button type="button" class="btn btn-danger btn-xs btn-cancel btn-center" data-dismiss="modal">
+                        <span class="trn">Cancel</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+<div class="modal fade masterModal" id="Confirmationpopup" role="dialog">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+
+
+            <div class="modal-header" style="background-image: url('../Images/header-bg.jpg')">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id=""><span class="trn">Confirmation</span></h4>
+            </div>
+
+            <div class="modal-body" style="min-height: 103px;">
+                <div class="col-lg-12" style="padding: 5px;">
+                    <div class="title">
+                        <h4 class="trn" id="ConfirmationMessage"></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnSearch" class="btn btn-success btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Submit" style="width: 64px;">
+                    <span class="trn">Submit</span>
+                </button>
+                <button type="submit" id="btnCancelSearch" class="btn btn-danger btn-xs" data-toggle="tooltip"
+                        data-placement="top" title="Cancel" style="width: 64px;">
+                    <span class="trn">Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button  type="submit" id="" class="btn btn-success btn-xs" data-toggle="tooltip"
+        data-placement="top" title="Submit" style="width: 64px;display:none;" onclick="movedtoFile();"> 
+    <span class="trn">Submit</span>
+</button>
+
+<script type="text/javascript">
+    new Sortable(document.getElementById('sortable1'));
+    new Sortable(document.getElementById('sortable2'));
+    new Sortable(document.getElementById('sortable3'));
+    new Sortable(document.getElementById('sortable4'));
+    new Sortable(document.getElementById('sortable5'));
+</script>

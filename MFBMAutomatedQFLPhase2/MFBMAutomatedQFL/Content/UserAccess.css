@@ -1,0 +1,13 @@
+﻿.overflow-ellipse {
+    white-space: nowrap !important;
+    max-width: 210px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+
+.overflow-ellipse-header {
+    white-space: nowrap !important;
+    max-width: 120px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}

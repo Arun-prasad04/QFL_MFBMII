@@ -1,0 +1,261 @@
+﻿@{
+    ViewBag.Title = "EmailNotificationMaster";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .table thead tr th, .table tbody tr td {
+        white-space: normal;
+        padding: 5px !important;
+    }
+
+    .dataTables_filter {
+        display: none;
+    }
+
+    .dataTables_length {
+        display: none;
+    }
+
+    .bootstrap-tagsinput {
+        margin-top: 10px !important;
+        width: 100% !important;
+    }
+
+    .label-info {
+        font-size: 15px !important;
+    }
+
+    .mt-10 {
+        margin-top: 10px !important;
+    }
+
+    .modal-body-scroll {
+        max-height: 350px;
+        overflow-y: scroll;
+    }
+</style>
+<link href="~/Content/bootstrap-tagsinput-typeahead.css" rel="stylesheet" />
+<link href="~/Content/bootstrap-tagsinput.css" rel="stylesheet" />
+
+<link href="~/Content/font_awesome.min.css" rel="stylesheet" />
+<link href="~/Content/font_awesome_all.min.css" rel="stylesheet" />
+
+<script src="~/Plugins/EmailNotificationMaster.js"></script>
+<link href="~/Content/jquery.dataTables.css" rel="stylesheet" />
+<script src="~/Scripts/jquery.dataTables.js"></script>
+
+<!-- [ Header ] start -->
+<!-- [ Header ] end -->
+<!-- [ Main Content ] start -->
+<div class="Table_contentpanel">
+    <div class="Audittrackertitlebg ">
+        <button class="btn btn-success btn-xs pull-right trn" onclick="ClickAddNew()">Add New</button>
+        <h5><span class="trn">Email Master</span></h5>
+    </div>
+    <hr style="margin-top: 1px; margin-bottom: 1px;">
+    <div class="AutomatedQFLPage-emailnotification">
+
+        <div class="row">
+            <!-- [ horizontal-layout ] start -->
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-header">
+                    </div>
+                    <div class="card-body">
+
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3">
+
+                                <table class="table  table-bordered  dashboard-table " id="Dt_EmailNotification">
+                                    <thead>
+                                        <tr>
+                                            <th style="display:none;">groupId</th>
+                                            <th class="trn" style="width: 45%;text-align:center;">Manager</th>
+                                            <th class="trn" style="width: 45%;text-align:center;">User</th>
+                                            <th class="trn" style="width: 10%;text-align:center;">Action</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        @*<tr>
+                                                <td>
+                                                    <span class="badge badge-primary">Test@gmail.com</span>
+                                                    <span class="badge badge-primary">Test2@gmail.com</span>
+                                                    <span class="badge badge-primary">Test3@gmail.com</span>
+                                                    <span class="badge badge-primary">Test4@gmail.com</span>
+                                                    <span class="badge badge-primary">Test5@gmail.com</span>
+                                                    <span class="badge badge-primary">Test@gmail.com</span>
+                                                    <span class="badge badge-primary">Test@gmail.com</span>
+                                                    <span class="badge badge-primary">Test@gmail.com</span>
+                                                    <span class="badge badge-primary">Test@gmail.com</span>
+                                                </td>
+                                                <td>
+                                                    <span class="badge badge-primary">Test@gmail.com</span>
+                                                    <span class="badge badge-primary">Test2@gmail.com</span>
+                                                    <span class="badge badge-primary">Test3@gmail.com</span>
+                                                    <span class="badge badge-primary">Test4@gmail.com</span>
+
+                                                    <span class="badge badge-primary">Test@gmail.com</span>
+                                                    <span class="badge badge-primary">Test@gmail.com</span>
+                                                    <span class="badge badge-primary">Test@gmail.com</span>
+                                                </td>
+
+                                            </tr>
+
+                                            <tr>
+                                                <th>
+                                                    <span class="badge badge-primary">Test@gmail.com</span>
+                                                    <span class="badge badge-primary">Test2@gmail.com</span>
+                                                    <span class="badge badge-primary">Test3@gmail.com</span>
+
+                                                    <span class="badge badge-primary">Test@gmail.com</span>
+                                                    <span class="badge badge-primary">Test@gmail.com</span>
+                                                </th>
+                                                <th>
+                                                    <span class="badge badge-primary">Test@gmail.com</span>
+                                                    <span class="badge badge-primary">Test2@gmail.com</span>  <span class="badge badge-primary">Test@gmail.com</span>
+                                                    <span class="badge badge-primary">Test@gmail.com</span>
+                                                    <span class="badge badge-primary">Test@gmail.com</span>
+                                                    <span class="badge badge-primary">Test@gmail.com</span>
+                                                </th>
+
+                                            </tr>*@
+
+                                    </tbody>
+
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ horizontal-layout ] end -->
+        </div>
+    </div>
+</div>
+
+
+<!-- [ Main Content ] end -->
+<form action="#" id="AddNewEmailValidationForm">
+
+    <div id="EmailModalLive" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                    <h4 class="modal-title trn" id="exampleModalLiveLabel">Add New</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="managertextboxhidden">
+                        <input type="text" class="validate[required] form-control" placeholder="Enter the Manager" value="" data-role="tagsinput" id="txtmanagerval" />
+                        <span style="color:red;display:none" id="managerValidation" class="trn">Enter atleast one manager Id</span>
+                    </div>
+                    <div class="mt-3" id="usertextboxhidden">
+                        <input type="text" class="validate[required] form-control" placeholder="Enter the User" value="" data-role="tagsinput" id="txtuserval" />
+                        <span style="color:red;display:none" id="userValidation" class="trn">Enter atleast one User Id</span>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="btnSaveEmailDetails()" class="btn btn-xs btn-success trn">Save</button>
+
+                    <button type="button" class="btn btn-xs btn-danger trn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+<form action="#" id="EditNewEmailValidationForm">
+
+    <div id="EditEmailModalLive" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                    <h4 class="modal-title  trn" id="EditexampleModalLiveLabel">Edit Manager</h4>
+                </div>
+                <div class="modal-body modal-body-scroll" id="bindingtextbox">
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="btnEditSaveEmailDetails()" class="btn btn-xs btn-success trn">Save</button>
+
+                    <button type="button" class="btn btn-xs btn-danger trn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
+
+<form action="#" id="EditUserNewEmailValidationForm">
+
+    <div id="EditUserEmailModalLive" data-backdrop="static" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLiveLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+
+                    <h4 class="modal-title  trn" id="EditexampleModalLiveLabel">Edit User</h4>
+                </div>
+                <div class="modal-body modal-body-scroll" id="bindingUsertextbox">
+
+
+                    @*<div>
+                            <input type="text" class="validate[required]" value="" id="txtmanagerval" />
+                            <span style="color:red;display:none" id="EditmanagerValidation">Please Enter the value</span>
+                        </div>*@
+                </div>
+                <div class="modal-footer">
+                    <button type="button" onclick="btnEditUserSaveEmailDetails()" class="btn btn-xs btn-success trn">Save</button>
+
+                    <button type="button" class="btn btn-xs btn-danger trn" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+<div class="modal fade masterModal" data-backdrop="static" id="Confirmationpopup" role="dialog">
+    <div class="modal-dialog modal-xs">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title ">
+                    <span class="trn">Confirmation</span>
+                </h4>
+            </div>
+            <div class="modal-body" style="min-height: 80px;">
+                <div class="col-lg-12" style="padding: 5px;">
+                    <div class="title">
+                        <h4 id="ConfirmationMessage"><span class="trn"></span></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" id="btnsubmitConfirmation" onclick="btnConfirmationEmailDelete()" class="btn btn-success btn-xs" data-toggle="tooltip"
+                        data-placement="top"  style="width: 64px;">
+                    <span class="trn">Submit</span>
+                </button>
+                <button type="submit" id="btnCancelSearch" data-dismiss="modal" class="btn btn-danger btn-xs" data-toggle="tooltip"
+                        data-placement="top"  style="width: 64px;">
+                    <span class="trn">Cancel</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script src="~/Scripts/pcoded.min.js"></script>
+<script src="~/Scripts/bootstrap-tagsinput.min.js"></script>
