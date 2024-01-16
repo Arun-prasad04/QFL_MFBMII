@@ -875,6 +875,7 @@ function BindVINHistoryData(data) {
     $('#excelId').val(HistoryVIN);
     var HistoryHTML = "";
     $('#VINHistoryVINName').text(HistoryVIN); //------Bind the VIN Name Here
+    $('#VINHistoryModelName').text(ModelName); 
 
 
     if (data.HistoryGateDetails != null && data.HistoryGateDetails.length > 0) {
@@ -1561,6 +1562,7 @@ function RevertJPCompletion() {
 function RevertCompetionYes() {
     $('#ConfirmationpopupRevert').modal('hide');
     var VIN = $('#VINHistoryVINName').text();
+    var Model = $('#VINHistoryModelName').text();
 
     var json = {
         "filename": "",
@@ -1570,7 +1572,8 @@ function RevertCompetionYes() {
         "vinnumber": VIN,
         "isreworkcompleted": false,
         "isreexaminationcompleted": false,
-        "gatename": "Re-Examination1"
+        "gatename": "Re-Examination1",
+        "ModelName": Model
     };
 
 

@@ -177,6 +177,14 @@
         position: absolute;
         z-index: 1000;
     }
+
+    #vin {
+        padding-right:20px;
+    }
+
+    #model {
+        padding-left: 20px;
+    }
 </style>
 <link href="~/Content/progressMonitor.css" rel="stylesheet" />
 <link href="~/Content/bootstrap-datetimepicker.css" rel="stylesheet" />
@@ -373,7 +381,7 @@
                 <div class="row">
                     @*<img src="~/Images/LockIcon.png" onclick="RevertJPCompletion()" id="RevercompletionId" style="width:37px;height:37px;" />*@
 
-                    <h4 class="modal-title col-sm-10 mt-20" id="">VIN - <span id="VINHistoryVINName">19-6G5269 </span></h4>
+                    <h4 class="modal-title col-sm-10 mt-20" id=""><span id="vin">VIN - <span id="VINHistoryVINName">19-6G5269 </span></span><span id="model">Model - <span id="VINHistoryModelName">MODEL </span></span></h4>
                     <div id="" class="form-group col-lg-2 col-sm-2 col-md-2" style="text-align: right;">
                         <span><i id="vinDelete" class="fas fa-trash-alt" data-toggle="modal" style="font-size: 23px; color: rgb(146, 16, 13); margin-left: 0px; cursor: pointer; float: right; padding: 2px 4px 0px 10px; margin-top: 0px;"></i></span>
 
